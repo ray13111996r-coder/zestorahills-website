@@ -1,0 +1,6 @@
+{
+  "name": "Zestora Hills",
+  "description": "Single-origin spices and estate coffee sourced directly from the Western Ghats. Retail packs, domestic wholesale, and global export from zestorahills.in.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
