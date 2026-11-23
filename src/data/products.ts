@@ -57,8 +57,8 @@ export const PRODUCTS: Product[] = [
     image: '/src/assets/images/product_green_cardamom_1795192083671.jpg',
     imageAlt: 'Bold green Idukki cardamom pods in a brushed brass tasting dish on travertine',
     packs: {
-      '100g': { size: '100g', priceInr: 556, sku: 'ZH-CRD-100' },
-      '200g': { size: '200g', priceInr: 1114, sku: 'ZH-CRD-200' },
+      '100g': { size: '100g', priceInr: 480, sku: 'ZH-CRD-100' },
+      '200g': { size: '200g', priceInr: 960, sku: 'ZH-CRD-200' },
     },
   },
   {
