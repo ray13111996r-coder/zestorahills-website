@@ -34,8 +34,8 @@ export const PRODUCTS: Product[] = [
     image: '/src/assets/images/product_black_pepper_1795192079115.jpg',
     imageAlt: 'Whole Tellicherry black peppercorns in a matte stoneware bowl on cream travertine',
     packs: {
-      '100g': { size: '100g', priceInr: 216, sku: 'ZH-BLK-100' },
-      '200g': { size: '200g', priceInr: 434, sku: 'ZH-BLK-200' },
+      '100g': { size: '100g', priceInr: 199, sku: 'ZH-BLK-100' },
+      '200g': { size: '200g', priceInr: 398, sku: 'ZH-BLK-200' },
     },
   },
   {
