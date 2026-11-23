@@ -17,6 +17,7 @@ export const STORY_IMAGE = '/src/assets/images/story_western_ghats_estate_179519
 export const PRODUCTS: Product[] = [
   {
     id: 'whole-black-pepper',
+    supabaseId: 1,
     slug: 'whole-black-pepper',
     name: 'Whole Black Pepper',
     botanicalName: 'Piper nigrum',
@@ -40,6 +41,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'green-cardamom',
+    supabaseId: 2,
     slug: 'green-cardamom',
     name: 'Green Cardamom',
     botanicalName: 'Elettaria cardamomum',
@@ -63,6 +65,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'cinnamon',
+    supabaseId: 3,
     slug: 'cinnamon',
     name: 'Cinnamon',
     botanicalName: 'Cinnamomum verum',
@@ -87,6 +90,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'dried-ginger',
+    supabaseId: 4,
     slug: 'dried-ginger',
     name: 'Dried Ginger',
     botanicalName: 'Zingiber officinale',
@@ -110,6 +114,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'cloves',
+    supabaseId: 5,
     slug: 'cloves',
     name: 'Cloves',
     botanicalName: 'Syzygium aromaticum',
@@ -133,6 +138,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'star-anise',
+    supabaseId: 6,
     slug: 'star-anise',
     name: 'Star Anise',
     botanicalName: 'Illicium verum',
@@ -156,6 +162,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'dried-bay-leaf',
+    supabaseId: 7,
     slug: 'dried-bay-leaf',
     name: 'Dried Bay Leaf',
     botanicalName: 'Cinnamomum tamala',
@@ -179,6 +186,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'dried-rosemary',
+    supabaseId: 8,
     slug: 'dried-rosemary',
     name: 'Dried Rosemary',
     botanicalName: 'Salvia rosmarinus',
@@ -202,6 +210,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'nutmeg',
+    supabaseId: 9,
     slug: 'nutmeg',
     name: 'Nutmeg',
     botanicalName: 'Myristica fragrans',
@@ -225,6 +234,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'roasted-coffee-beans',
+    supabaseId: 10,
     slug: 'roasted-coffee-beans',
     name: 'Roasted Coffee Beans',
     botanicalName: 'Coffea arabica (S.795 & Kent)',
