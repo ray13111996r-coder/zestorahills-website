@@ -51,14 +51,14 @@ export function ProductDetailModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#10291D]/65 p-4 sm:p-6 backdrop-blur-[2px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#10291D]/65 p-2 sm:p-6 backdrop-blur-[2px]"
       role="dialog"
       aria-modal="true"
       aria-labelledby="pdp-modal-title"
       onClick={onClose}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg border border-[#173C2B]/15 bg-[#F3EBDD]"
+        className="relative max-h-[94dvh] sm:max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg border border-[#173C2B]/15 bg-[#F3EBDD]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -83,7 +83,7 @@ export function ProductDetailModal({
           </div>
 
           {/* Right Contiguous Purchase Module */}
-          <div className="flex flex-col p-6 sm:p-8 md:col-span-6">
+          <div className="flex flex-col p-4 sm:p-8 md:col-span-6">
             <div className="flex flex-wrap items-center gap-2 text-xs text-[#718276]">
               <span>{product.category}</span>
               <span aria-hidden="true">·</span>
@@ -94,7 +94,7 @@ export function ProductDetailModal({
 
             <h2
               id="pdp-modal-title"
-              className="mt-2 font-serif text-3xl font-semibold text-[#173C2B]"
+              className="mt-2 font-serif text-2xl sm:text-3xl font-semibold text-[#173C2B]"
             >
               {product.name}
             </h2>
@@ -124,10 +124,10 @@ export function ProductDetailModal({
             </div>
 
             {/* Pack Size & Quantity */}
-            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+            <div className="mt-5 flex flex-col items-start justify-between gap-4 sm:flex-row sm:flex-wrap sm:items-end">
               <div>
                 <p className="text-xs font-medium text-[#718276]">Pack Size</p>
-                <div className="mt-1.5 inline-flex rounded-md bg-[#E9E2D3] p-1">
+                <div className="mt-1.5 inline-flex max-w-full flex-wrap rounded-md bg-[#E9E2D3] p-1">
                   {availablePacks.map((size) => {
                     const active = packSize === size;
                     return (
@@ -135,7 +135,7 @@ export function ProductDetailModal({
                         key={size}
                         type="button"
                         onClick={() => setPackSize(size)}
-                        className={`min-h-[38px] rounded px-4 text-sm font-semibold tabular-nums transition-colors cursor-pointer ${
+                        className={`min-h-[38px] rounded px-3 sm:px-4 text-xs sm:text-sm font-semibold tabular-nums transition-colors cursor-pointer ${
                           active
                             ? 'bg-[#173C2B] text-[#F3EBDD]'
                             : 'text-[#52665A] hover:text-[#173C2B]'
