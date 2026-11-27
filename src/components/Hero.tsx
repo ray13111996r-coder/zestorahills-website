@@ -9,8 +9,8 @@ interface HeroProps {
 
 const PROVENANCE_METRICS = [
   { value: '1,200m+', label: 'Western Ghats Elevation' },
-  { value: '10 Harvests', label: 'Single-Origin Spices & Arabica' },
-  { value: '100g · 200g', label: 'Aroma-Lock Retail Packs' },
+  { value: '14 Products', label: 'Spices · Coffee · Infusions' },
+  { value: '50g – 500g', label: 'Curated Retail Packs' },
   { value: 'FSSAI · CRES', label: 'Export & Bulk Trade Ready' },
 ];
 
@@ -24,19 +24,17 @@ export function Hero({ onShopRetail, onBulkInquiry }: HeroProps) {
             <div className="flex flex-wrap items-center gap-2 text-xs tracking-wide text-[#D4AF6A]">
               <span>Western Ghats, India</span>
               <span aria-hidden="true">·</span>
-              <span>Single-Origin Harvests</span>
+              <span>Rooted in Nature</span>
               <span aria-hidden="true">·</span>
               <span>zestorahills.in</span>
             </div>
 
             <h1 className="mt-5 font-serif text-[clamp(2.5rem,4.3vw,4rem)] font-medium leading-[1.08] tracking-tight text-[#F7F4EC] text-balance">
-              Estate-grown spices &amp; highland coffee, direct from the Western Ghats.
+              A TASTE OF THE WESTERN GHATS
             </h1>
 
             <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-[#EFEADF]/85 tracking-[0.01em]">
-              Sourced directly from family orchards across Idukki, Wayanad, and Chikmagalur.
-              Slow-cured in small harvests for unmistakable volatile oil aroma—packed for discerning
-              home kitchens and international export buyers alike.
+              Nature's finest, carefully selected and beautifully delivered. Discover whole spices, roasted coffee and botanical infusions inspired by the Western Ghats.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -64,7 +62,7 @@ export function Hero({ onShopRetail, onBulkInquiry }: HeroProps) {
             <div className="relative h-full min-h-[300px] sm:min-h-[380px] lg:min-h-[440px] overflow-hidden rounded-lg border border-[#D4AF6A]/20">
               <ProductImage
                 src={HERO_IMAGE}
-                alt="Single-origin Western Ghats spices including green cardamom, Tellicherry black pepper, cinnamon quills, cloves, star anise, and roasted coffee beans on slate and travertine"
+                alt="Western Ghats spices including green cardamom, Tellicherry black pepper, cinnamon quills, cloves, star anise, and roasted coffee beans on slate and travertine"
                 title="Zestora Hills Harvest Table"
                 className="h-full w-full"
                 imgClassName="h-full w-full object-cover"
