@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Minus, Plus, X } from 'lucide-react';
+import { Minus, Plus, X } from 'lucide-react';
 import { PackSize, Product } from '../types';
 import { ProductImage } from './ProductImage';
 
@@ -8,7 +8,6 @@ interface ProductDetailModalProps {
   initialPack: PackSize;
   onClose: () => void;
   onAddToCart: (product: Product, packSize: PackSize, quantity: number) => void;
-  onRequestBulk: (productName: string) => void;
 }
 
 export function ProductDetailModal({
@@ -16,7 +15,6 @@ export function ProductDetailModal({
   initialPack,
   onClose,
   onAddToCart,
-  onRequestBulk,
 }: ProductDetailModalProps) {
   const [packSize, setPackSize] = useState<PackSize>(initialPack);
   const [quantity, setQuantity] = useState(1);
@@ -187,17 +185,7 @@ export function ProductDetailModal({
               </span>
             </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                onClose();
-                onRequestBulk(product.name);
-              }}
-              className="mt-3 inline-flex items-center justify-center gap-1.5 py-2 text-xs font-medium text-[#987B43] transition-colors hover:text-[#173C2B] cursor-pointer"
-            >
-              <span>Need 5kg+ wholesale or export pricing for {product.name}?</span>
-              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
-            </button>
+
           </div>
         </div>
       </div>
