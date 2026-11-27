@@ -43,6 +43,38 @@ interface ConfirmedReceipt {
 const FREE_SHIPPING_THRESHOLD = 1499;
 const FLAT_SHIPPING_FEE = 95;
 
+const loadRazorpayScript = () =>
+  new Promise<boolean>((resolve) => {
+    if (window.Razorpay) {
+      resolve(true);
+      return;
+    }
+
+    const existingScript = document.querySelector(
+      'script[src="https://checkout.razorpay.com/v1/checkout.js"]'
+    );
+
+    if (existingScript) {
+      existingScript.addEventListener("load", () => resolve(true), { once: true });
+      existingScript.addEventListener("error", () => resolve(false), { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+
+declare global {
+  interface Window {
+    Razorpay?: new (options: Record<string, unknown>) => {
+      open: () => void;
+    };
+  }
+}
+
 export function CartDrawer({
   products,
   isOpen,
@@ -160,6 +192,8 @@ export function CartDrawer({
     setFormError('');
     setIsSubmitting(true);
 
+    let paymentWindowOpen = false;
+
     try {
       const orderItems = resolvedItems.map((entry) => ({
         product_id: entry.product.supabaseId,
@@ -167,46 +201,152 @@ export function CartDrawer({
         quantity: entry.quantity,
       }));
 
-      const { data, error } = await supabase.functions.invoke('create-order', {
-        body: {
-          customer_name: customerName.trim(),
-          phone: phone.trim(),
-          email: email.trim() || null,
-          delivery_address: address.trim(),
-          city: city.trim(),
-          pincode: pincode.trim(),
-          payment_method: paymentMethod,
-          items: orderItems,
-        },
-      });
-
-      if (error) {
-        throw new Error(error.message || 'Unable to submit your order.');
-      }
-
-      if (!data || !data.success || !data.order_id) {
-        throw new Error(data?.error || 'Your order could not be created.');
-      }
+      const customerDetails = {
+        customer_name: customerName.trim(),
+        phone: phone.trim(),
+        email: email.trim() || null,
+        delivery_address: address.trim(),
+        city: city.trim(),
+        pincode: pincode.trim(),
+        items: orderItems,
+      };
 
       const summaryLines = resolvedItems.map(
         (entry) =>
           `${entry.product.name} (${entry.packSize}) × ${entry.quantity}`
       );
 
-      setReceipt({
-        orderId: data.order_id,
-        customerName: customerName.trim(),
-        phone: phone.trim(),
-        address: address.trim(),
-        city: city.trim(),
-        pincode: pincode.trim(),
-        paymentMethod,
-        totalInr: Number(data.total_amount),
-        itemSummary: summaryLines,
+      if (paymentMethod === 'Cash on Delivery (COD)') {
+        const { data, error } = await supabase.functions.invoke('create-order', {
+          body: {
+            ...customerDetails,
+            payment_method: 'Cash on Delivery (COD)',
+          },
+        });
+
+        if (error) {
+          throw new Error(error.message || 'Unable to submit your order.');
+        }
+
+        if (!data || !data.success || !data.order_id) {
+          throw new Error(data?.error || 'Your order could not be created.');
+        }
+
+        setReceipt({
+          orderId: data.order_id,
+          customerName: customerName.trim(),
+          phone: phone.trim(),
+          address: address.trim(),
+          city: city.trim(),
+          pincode: pincode.trim(),
+          paymentMethod,
+          totalInr: Number(data.total_amount),
+          itemSummary: summaryLines,
+        });
+
+        onClearCart();
+        setStep('confirmed');
+        return;
+      }
+
+      const { data: paymentData, error: paymentError } =
+        await supabase.functions.invoke('create-razorpay-order', {
+          body: customerDetails,
+        });
+
+      if (paymentError) {
+        throw new Error(paymentError.message || 'Unable to start online payment.');
+      }
+
+      if (
+        !paymentData?.success ||
+        !paymentData.internal_order_id ||
+        !paymentData.razorpay_order_id ||
+        !paymentData.key_id ||
+        !paymentData.amount ||
+        !paymentData.currency
+      ) {
+        throw new Error(paymentData?.error || 'Unable to prepare your payment.');
+      }
+
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded || !window.Razorpay) {
+        throw new Error('The secure payment window could not be loaded. Please try again.');
+      }
+
+      const checkout = new window.Razorpay({
+        key: paymentData.key_id,
+        amount: paymentData.amount,
+        currency: paymentData.currency,
+        name: 'Zestora Hills',
+        description: 'Order payment',
+        order_id: paymentData.razorpay_order_id,
+        prefill: {
+          name: customerName.trim(),
+          email: email.trim(),
+          contact: phone.trim(),
+        },
+        theme: { color: '#173C2B' },
+        modal: {
+          ondismiss: () => {
+            paymentWindowOpen = false;
+            setIsSubmitting(false);
+            setFormError('Payment was cancelled. Your order has not been confirmed.');
+          },
+        },
+        handler: async (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) => {
+          try {
+            const { data: verificationData, error: verificationError } =
+              await supabase.functions.invoke('verify-razorpay-payment', {
+                body: {
+                  internal_order_id: paymentData.internal_order_id,
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                },
+              });
+
+            if (verificationError || !verificationData?.success) {
+              throw new Error(
+                verificationData?.error ||
+                  verificationError?.message ||
+                  'Payment verification could not be completed.'
+              );
+            }
+
+            setReceipt({
+              orderId: paymentData.internal_order_id,
+              customerName: customerName.trim(),
+              phone: phone.trim(),
+              address: address.trim(),
+              city: city.trim(),
+              pincode: pincode.trim(),
+              paymentMethod,
+              totalInr: Number(paymentData.amount) / 100,
+              itemSummary: summaryLines,
+            });
+
+            onClearCart();
+            setStep('confirmed');
+            setFormError('');
+          } catch (verificationError) {
+            console.error('Payment verification error:', verificationError);
+            setFormError(
+              'Your payment response was received, but confirmation is still pending. Please contact Zestora Hills before trying to pay again.'
+            );
+          } finally {
+            paymentWindowOpen = false;
+            setIsSubmitting(false);
+          }
+        },
       });
 
-      onClearCart();
-      setStep('confirmed');
+      paymentWindowOpen = true;
+      checkout.open();
     } catch (error) {
       console.error('Checkout error:', error);
       setFormError(
@@ -214,8 +354,12 @@ export function CartDrawer({
           ? error.message
           : 'Something went wrong. Please try again.'
       );
-    } finally {
+      paymentWindowOpen = false;
       setIsSubmitting(false);
+    } finally {
+      if (!paymentWindowOpen) {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -619,8 +763,9 @@ export function CartDrawer({
                 </div>
 
                 <p className="mt-2 text-xs text-[#718276]">
-                  Payment will remain pending until it is collected or confirmed.
-                  Our team will contact you with payment instructions.
+                  {paymentMethod === 'UPI / Cards'
+                    ? 'You will complete your payment securely through Razorpay.'
+                    : 'Pay when your order is delivered.'}
                 </p>
               </div>
             </div>
@@ -657,8 +802,9 @@ export function CartDrawer({
               </h3>
 
               <p className="mt-2 text-sm leading-relaxed text-[#52665A]">
-                Your order has been successfully recorded. Our team will contact you
-                regarding payment and dispatch.
+                {receipt.paymentMethod === 'UPI / Cards'
+                  ? 'Your payment has been verified and your order is confirmed.'
+                  : 'Your order has been recorded. Please pay when it is delivered.'}
               </p>
 
               <div className="mt-6 space-y-3 rounded-lg border border-[#173C2B]/10 bg-[#F8F5EC] p-5 text-sm">
@@ -685,7 +831,9 @@ export function CartDrawer({
                     <p className="font-medium text-[#173C2B]">
                       {receipt.paymentMethod}
                     </p>
-                    <p className="text-xs text-[#987B43]">Payment pending</p>
+                    <p className="text-xs text-[#987B43]">
+                      {receipt.paymentMethod === 'UPI / Cards' ? 'Payment successful' : 'Pay on delivery'}
+                    </p>
                   </div>
                 </div>
 
