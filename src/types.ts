@@ -9,6 +9,7 @@ export interface PackVariant {
   priceInr: number;
   sku: string;
   stockQuantity?: number;
+  isActive?: boolean;
 }
 
 export interface Product {
