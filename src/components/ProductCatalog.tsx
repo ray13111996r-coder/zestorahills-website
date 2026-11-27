@@ -180,6 +180,7 @@ export function ProductCatalog({
             const variant = product.packs[currentPack];
             const hasPrice = Boolean(variant && variant.priceInr > 0);
             const inStock = variant?.stockQuantity === undefined || variant.stockQuantity > 0;
+            const canAdd = hasPrice && variant?.isActive !== false && inStock;
             const isAdded = Boolean(recentlyAdded[product.id]);
 
             return (
@@ -226,7 +227,7 @@ export function ProductCatalog({
                       {product.name}
                     </button>
                     <span className="text-base font-semibold text-[#132A1E] tabular-nums whitespace-nowrap shrink-0">
-                      {!hasPrice ? 'Price to be confirmed' : !inStock ? 'Out of stock' : `₹${variant!.priceInr.toLocaleString('en-IN')}`}
+                      {!hasPrice ? 'Price to be confirmed' : variant?.isActive === false ? 'Coming soon' : !inStock ? 'Out of stock' : `₹${variant!.priceInr.toLocaleString('en-IN')}`}
                     </span>
                   </div>
 
@@ -275,7 +276,7 @@ export function ProductCatalog({
                     <button
                       type="button"
                       onClick={() => handleAdd(product)}
-                      disabled={!hasPrice || !inStock}
+                      disabled={!canAdd}
                       className={`mt-3 inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors duration-150 whitespace-nowrap cursor-pointer ${
                         isAdded
                           ? 'bg-[#274D3A] text-[#F7F4EC]'
@@ -289,6 +290,8 @@ export function ProductCatalog({
                         </>
                        ) : !hasPrice ? (
                         <span>Price to be confirmed</span>
+                      ) : variant?.isActive === false ? (
+                        <span>Coming soon</span>
                       ) : !inStock ? (
                         <span>Currently out of stock</span>
                       ) : (
