@@ -8,30 +8,21 @@ interface ContactQuotePageProps {
   prefill?: QuotePrefill | null;
 }
 
-const INQUIRY_MODES: InquiryMode[] = [
-  'Bulk & Export Quote',
-  'Domestic Wholesale',
-  'Retail & Gifting',
-];
+const INQUIRY_MODES: InquiryMode[] = ['Retail & Gifting'];
 
 const VOLUME_OPTIONS = [
-  'Evaluation Sample Kit',
-  '10 kg – 50 kg (Domestic Wholesale)',
-  '50 kg – 250 kg (Air Freight / Regional Bulk)',
-  '250 kg – 1,000 kg (Export Consolidated)',
-  '1 MT+ / Full Container Load (FCL)',
-  'Retail / Corporate Gifting Packs',
+  'Personal / Family Order',
+  'Retail Order',
+  'Corporate or Festive Gifting Enquiry',
 ];
 
 const PACKAGING_OPTIONS = [
-  '5kg Vacuum Foil',
-  '25kg Export Sack',
   'Retail Packs (50g / 100g / 200g / 500g)',
-  'Private Label / Custom Tins',
+  'Gift Set / Custom Packaging',
 ];
 
 export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
-  const [mode, setMode] = useState<InquiryMode>(prefill?.mode ?? 'Bulk & Export Quote');
+  const [mode, setMode] = useState<InquiryMode>(prefill?.mode ?? 'Retail & Gifting');
   const [fullName, setFullName] = useState('');
   const [company, setCompany] = useState('');
   const [email, setEmail] = useState('');
@@ -73,7 +64,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
       fullName.trim() ? `Name: ${fullName.trim()}` : null,
       company.trim() ? `Company: ${company.trim()}` : null,
       `Products: ${productList}`,
-      `Estimated Volume: ${volume}`,
+      `Order Type: ${volume}`,
       `Packaging: ${packaging}`,
       destination.trim() ? `Destination: ${destination.trim()}` : null,
       message.trim() ? `Notes: ${message.trim()}` : null,
@@ -85,7 +76,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
   }, [mode, fullName, company, selectedProducts, volume, packaging, destination, message]);
 
   const directWhatsAppHref = `https://wa.me/${BRAND_CONTACT.whatsappNumber}?text=${encodeURIComponent(
-    'Hello Zestora Hills! I would like to inquire about Western Ghats spices, roasted coffee and infused teas (retail / wholesale).'
+    'Hello Zestora Hills! I would like to inquire about your spices, roasted coffee and infused teas.'
   )}`;
 
   const handleSubmit = async (e: FormEvent) => {
@@ -133,19 +124,17 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8 py-14 sm:py-16">
           <div className="max-w-2xl">
             <div className="flex flex-wrap items-center gap-2 text-xs tracking-wide text-[#D6BD83]">
-              <span>Contact &amp; Bulk Trade Desk</span>
+              <span>Contact Zestora Hills</span>
               <span aria-hidden="true">·</span>
               <span>zestorahills.in</span>
               <span aria-hidden="true">·</span>
               <span>Response within 24 Hours</span>
             </div>
             <h1 className="mt-4 font-serif text-[clamp(2.25rem,4vw,3.6rem)] font-medium leading-[1.1] text-[#F3EBDD] text-balance">
-              Request a wholesale quotation or speak directly with our sourcing desk.
+              We would love to hear from you.
             </h1>
             <p className="mt-4 text-base leading-relaxed text-[#E9E2D3]/82">
-              Whether you need 50g–500g retail packs, a bulk domestic wholesale consignment, or FOB
-              export pricing and applicable product documentation, our team responds
-              promptly.
+              For product questions, order assistance or gifting enquiries, please get in touch with our team.
             </p>
           </div>
         </div>
@@ -158,13 +147,12 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
           <div className="space-y-6 lg:col-span-5">
             {/* Prominent Direct WhatsApp Inquiry Card */}
             <div className="rounded-lg bg-[#173C2B] p-7 text-[#F3EBDD]">
-              <p className="text-xs font-medium text-[#D6BD83]">Instant Trade &amp; Retail Support</p>
+              <p className="text-xs font-medium text-[#D6BD83]">Customer Support</p>
               <h2 className="mt-2 font-serif text-3xl font-medium text-[#F3EBDD]">
                 Direct WhatsApp Inquiry
               </h2>
               <p className="mt-2.5 text-sm leading-relaxed text-[#E9E2D3]/82">
-                Connect directly with our Idukki sourcing and export desk on WhatsApp for live crop
-                availability, current harvest photos, sample dispatch, and urgent bulk quotes.
+                Message us for product information, order assistance and availability.
               </p>
 
               <a
@@ -184,7 +172,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
             {/* Contact Details Card */}
             <div className="rounded-lg border border-[#173C2B]/12 bg-[#F8F5EC] p-7 space-y-5">
               <h3 className="font-serif text-2xl font-semibold text-[#173C2B]">
-                Sourcing &amp; Dispatch House
+                Contact Details
               </h3>
 
               <div className="space-y-4 text-sm">
@@ -201,7 +189,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                   <div>
                     <p className="font-medium text-[#173C2B]">Email Desks</p>
                     <p className="mt-0.5 text-[#52665A]">
-                      Wholesale &amp; Export:{' '}
+                      General Enquiries:{' '}
                       <a
                         href={`mailto:${BRAND_CONTACT.tradeEmail}`}
                         className="text-[#173C2B] underline decoration-[#B69A61]/60 underline-offset-4 hover:text-[#987B43]"
@@ -210,7 +198,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       </a>
                     </p>
                     <p className="mt-0.5 text-[#52665A]">
-                      Retail Care:{' '}
+                      Customer Care:{' '}
                       <a
                         href={`mailto:${BRAND_CONTACT.careEmail}`}
                         className="text-[#173C2B] underline decoration-[#B69A61]/60 underline-offset-4 hover:text-[#987B43]"
@@ -234,7 +222,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
             </div>
           </div>
 
-          {/* Right Column: Interactive Contact & Bulk Quote Form */}
+          {/* Right Column: Customer Enquiry Form */}
           <div className="rounded-lg border border-[#173C2B]/12 bg-[#F8F5EC] p-6 sm:p-9 lg:col-span-7">
             {submittedRef ? (
               <div className="py-6">
@@ -248,8 +236,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                   Your inquiry has been logged
                 </h2>
                 <p className="mt-2.5 text-sm leading-relaxed text-[#52665A]">
-                  Thank you, {fullName}. Our Western Ghats trade desk will prepare grade specs and
-                  pricing for your selected harvests and reply to <strong>{email}</strong> within
+                  Thank you, {fullName}. Our team will review your message and reply to <strong>{email}</strong> within
                   one business day.
                 </p>
 
@@ -296,16 +283,16 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <h2 className="font-serif text-3xl font-semibold text-[#173C2B]">
-                    Contact &amp; Bulk Quote Form
+                    Send Us a Message
                   </h2>
                   <p className="mt-1 text-sm text-[#52665A]">
-                    Select your inquiry type and target products for an itemized quotation.
+                    Tell us what you are interested in and how we can help.
                   </p>
                 </div>
 
                 {/* Inquiry Mode Segmented Selector */}
                 <div>
-                  <p className="text-xs font-medium text-[#52665A]">Inquiry Channel</p>
+                  <p className="text-xs font-medium text-[#52665A]">Enquiry Type</p>
                   <div className="mt-2 flex flex-wrap gap-1.5 rounded-lg bg-[#E9E2D3] p-1">
                     {INQUIRY_MODES.map((item) => {
                       const active = mode === item;
@@ -414,7 +401,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                 <div>
                   <div className="flex items-baseline justify-between">
                     <p className="text-xs font-medium text-[#52665A]">
-                      Products of Interest ({selectedProducts.length} selected)
+                      Products You Are Interested In ({selectedProducts.length} selected)
                     </p>
                     <button
                       type="button"
@@ -427,7 +414,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       }
                       className="text-xs font-medium text-[#987B43] hover:text-[#173C2B] cursor-pointer"
                     >
-                      {selectedProducts.length === PRODUCTS.length ? 'Clear All' : 'Select All 14'}
+                      {selectedProducts.length === PRODUCTS.length ? 'Clear All' : 'Select All Products'}
                     </button>
                   </div>
 
@@ -484,7 +471,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       htmlFor="quote-packaging"
                       className="block text-xs font-medium text-[#52665A]"
                     >
-                      Preferred Packaging
+                      Packaging Preference
                     </label>
                     <select
                       id="quote-packaging"
@@ -506,14 +493,14 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                     htmlFor="quote-destination"
                     className="block text-xs font-medium text-[#52665A]"
                   >
-                    Delivery City / Destination Port &amp; Country
+                    Delivery City
                   </label>
                   <input
                     id="quote-destination"
                     type="text"
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
-                    placeholder="e.g., Bengaluru (India), Dubai (Jebel Ali), or Rotterdam (EU)"
+                    placeholder="e.g., Coimbatore, Chennai or Bengaluru"
                     className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3.5 text-sm text-[#173C2B]"
                   />
                 </div>
@@ -523,14 +510,14 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                     htmlFor="quote-message"
                     className="block text-xs font-medium text-[#52665A]"
                   >
-                    Grade Requirements, Lab COA Needs, or Message
+                    Your Message
                   </label>
                   <textarea
                     id="quote-message"
                     rows={4}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Specify sieve grade (e.g. 8mm+ cardamom, TGSEB pepper), target Incoterms (FOB/CIF), or private-label pack details..."
+                    placeholder="Tell us which products you are interested in or ask us anything...​"
                     className="mt-1.5 w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3.5 py-2.5 text-sm text-[#173C2B]"
                   />
                 </div>
@@ -543,7 +530,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                     className="inline-flex min-h-[46px] flex-1 items-center justify-center gap-2 rounded-md bg-[#173C2B] px-6 py-3 text-sm font-semibold text-[#F3EBDD] transition-colors hover:bg-[#244B35] whitespace-nowrap cursor-pointer"
                   >
                     <Send className="h-4 w-4 text-[#D6BD83]" aria-hidden="true" />
-                    <span>{isSubmitting ? 'Submitting…' : 'Submit Quote Request'}</span>
+                    <span>{isSubmitting ? 'Submitting…' : 'Send Enquiry'}</span>
                   </button>
 
                   <a

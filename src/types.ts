@@ -1,4 +1,4 @@
-export type PageRoute = 'home' | 'wholesale' | 'story' | 'contact';
+export type PageRoute = 'home' | 'story' | 'contact';
 
 export type PackSize = '50g' | '100g' | '200g' | '500g';
 
@@ -40,7 +40,7 @@ export interface CartItem {
   quantity: number;
 }
 
-export type InquiryMode = 'Bulk & Export Quote' | 'Domestic Wholesale' | 'Retail & Gifting';
+export type InquiryMode = 'Retail & Gifting';
 
 export interface QuotePrefill {
   mode?: InquiryMode;

@@ -4,7 +4,6 @@
  */
 
 import { useEffect, useState } from 'react';
-import { ArrowRight, MessageCircle } from 'lucide-react';
 import { CartDrawer } from './components/CartDrawer';
 import { ContactQuotePage } from './components/ContactQuotePage';
 import { Footer } from './components/Footer';
@@ -12,12 +11,10 @@ import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { ProductCatalog } from './components/ProductCatalog';
 import { ProductDetailModal } from './components/ProductDetailModal';
-import { ProductImage } from './components/ProductImage';
 import { StoryPage } from './components/StoryPage';
-import { WholesalePage } from './components/WholesalePage';
-import { BRAND_CONTACT, HERO_IMAGE, PRODUCTS, STORY_IMAGE } from './data/products';
+import { HERO_IMAGE, PRODUCTS } from './data/products';
 import { supabase } from './supabase';
-import { CartItem, PackSize, PageRoute, Product, QuotePrefill } from './types';
+import { CartItem, PackSize, PageRoute, Product } from './types';
 
 const CART_STORAGE_KEY = 'zestora_hills_cart_v1';
 
@@ -88,7 +85,7 @@ function mapDatabaseProduct(row: any): Product {
 
 function readInitialRoute(): PageRoute {
   const hash = window.location.hash.replace('#', '').toLowerCase();
-  if (hash === 'wholesale' || hash === 'story' || hash === 'contact') {
+  if (hash === 'story' || hash === 'contact') {
     return hash;
   }
   return 'home';
@@ -125,7 +122,6 @@ export default function App() {
     product: Product;
     pack: PackSize;
   } | null>(null);
-  const [quotePrefill, setQuotePrefill] = useState<QuotePrefill | null>(null);
 
 
   useEffect(() => {
@@ -183,11 +179,6 @@ export default function App() {
     }
   };
 
-  const openBulkQuote = (prefill?: QuotePrefill) => {
-    setQuotePrefill(prefill ?? { mode: 'Bulk & Export Quote' });
-    navigateTo('contact');
-  };
-
   const addToCart = (product: Product, packSize: PackSize, quantity = 1) => {
     setCartItems((prev) => {
       const existingIndex = prev.findIndex(
@@ -224,10 +215,6 @@ export default function App() {
 
   const totalBagCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
-  const directWhatsAppHref = `https://wa.me/${BRAND_CONTACT.whatsappNumber}?text=${encodeURIComponent(
-    'Hello Zestora Hills! I would like to inquire about wholesale / export spices, coffee and infused tea supply.'
-  )}`;
-
   return (
     <div className="flex min-h-screen flex-col bg-[#F3EBDD] text-[#173C2B]">
       <Navbar
@@ -242,7 +229,6 @@ export default function App() {
           <>
             <Hero
               onShopRetail={scrollToCatalog}
-              onBulkInquiry={() => navigateTo('wholesale')}
             />
 
             <ProductCatalog
@@ -251,109 +237,17 @@ export default function App() {
               onInspectProduct={(product, pack) => setInspectedProduct({ product, pack })}
             />
 
-            {/* Editorial Origin & Wholesale Bridge Section */}
-            <section className="border-t border-[#173C2B]/10 bg-[#E9E2D3]/65">
-              <div className="mx-auto max-w-[1280px] px-5 sm:px-8 py-16 sm:py-20">
-                <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-12">
-                  {/* Western Ghats Provenance Feature */}
-                  <div className="overflow-hidden rounded-lg border border-[#173C2B]/10 bg-[#F8F5EC] lg:col-span-7 flex flex-col">
-                    <ProductImage
-                      src={STORY_IMAGE}
-                      alt="Misty spice and shade-grown coffee hills of the Western Ghats at sunrise"
-                      title="Western Ghats Highland Estates"
-                      className="aspect-[16/9] w-full"
-                    />
-                    <div className="flex flex-1 flex-col p-6 sm:p-8">
-                      <p className="text-xs font-medium tracking-wide text-[#987B43]">
-                        Farm-to-Pack Provenance · Western Ghats
-                      </p>
-                      <h2 className="mt-2 font-serif text-3xl font-medium text-[#173C2B] text-balance">
-                        Inspired by the rich highlands of the Western Ghats.
-                      </h2>
-                      <p className="mt-3 text-sm leading-relaxed text-[#52665A]">
-                        By procuring directly at the farm gate in Idukki, Wayanad, Chikmagalur,
-                        and the Nilgiris, we eliminate auction storage delays and protect the
-                        volatile oils that define genuine Western Ghats spices and coffee.
-                      </p>
-                      <div className="mt-auto pt-6">
-                        <button
-                          type="button"
-                          onClick={() => navigateTo('story')}
-                          className="inline-flex min-h-[42px] items-center gap-2 text-sm font-semibold text-[#173C2B] underline decoration-[#B69A61] underline-offset-4 transition-colors hover:text-[#987B43] cursor-pointer"
-                        >
-                          <span>Read Our Western Ghats Story</span>
-                          <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Wholesale & Export Trade Feature */}
-                  <div className="flex flex-col justify-between rounded-lg bg-[#173C2B] p-7 sm:p-9 text-[#F3EBDD] lg:col-span-5">
-                    <div>
-                      <p className="text-xs font-medium tracking-wide text-[#D6BD83]">
-                        Wholesale &amp; Export Desk
-                      </p>
-                      <h2 className="mt-2 font-serif text-3xl font-medium leading-tight text-[#F3EBDD] text-balance">
-                        Bulk supply &amp; export readiness for global buyers.
-                      </h2>
-                      <p className="mt-4 text-sm leading-relaxed text-[#E9E2D3]/80">
-                        Discuss your retail, wholesale or export requirements with our team. Product availability, packaging, applicable licences and destination-specific documentation will be confirmed for each enquiry.
-                      </p>
-
-                      <dl className="mt-6 space-y-3 border-t border-[#F3EBDD]/12 pt-5 text-sm">
-                        <div className="flex justify-between gap-4">
-                          <dt className="text-[#E9E2D3]/70">Domestic Wholesale MOQ</dt>
-                          <dd className="font-medium text-[#D6BD83] tabular-nums">10 kg / SKU</dd>
-                        </div>
-                        <div className="flex justify-between gap-4">
-                          <dt className="text-[#E9E2D3]/70">Export Air / Sea Freight</dt>
-                          <dd className="font-medium text-[#D6BD83] tabular-nums">50 kg – FCL</dd>
-                        </div>
-                        <div className="flex justify-between gap-4">
-                          <dt className="text-[#E9E2D3]/70">Documentation</dt>
-                          <dd className="font-medium text-[#F3EBDD]">Confirmed per enquiry</dd>
-                        </div>
-                      </dl>
-                    </div>
-
-                    <div className="mt-8 flex flex-col gap-3">
-                      <button
-                        type="button"
-                        onClick={() => navigateTo('wholesale')}
-                        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md bg-[#D6BD83] px-5 py-2.5 text-sm font-semibold text-[#173C2B] transition-colors hover:bg-[#E5D19D] cursor-pointer"
-                      >
-                        <span>Explore Wholesale &amp; Export</span>
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                      </button>
-
-                      <a
-                        href={directWhatsAppHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md border border-[#D6BD83]/45 px-5 py-2.5 text-sm font-medium text-[#F3EBDD] transition-colors hover:border-[#D6BD83] hover:bg-[#244B35]"
-                      >
-                        <MessageCircle className="h-4 w-4 text-[#D6BD83]" aria-hidden="true" />
-                        <span>Direct WhatsApp Inquiry</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
           </>
         )}
-
-        {activePage === 'wholesale' && <WholesalePage onRequestQuote={openBulkQuote} />}
 
         {activePage === 'story' && (
           <StoryPage
             onShopRetail={scrollToCatalog}
-            onBulkInquiry={() => openBulkQuote({ mode: 'Bulk & Export Quote' })}
           />
         )}
 
-        {activePage === 'contact' && <ContactQuotePage prefill={quotePrefill} />}
+        {activePage === 'contact' && <ContactQuotePage />}
       </main>
 
       <Footer onNavigate={navigateTo} />
@@ -377,12 +271,6 @@ export default function App() {
           addToCart(product, packSize, qty);
           setCartOpen(true);
         }}
-        onRequestBulk={(productName) =>
-          openBulkQuote({
-            mode: 'Bulk & Export Quote',
-            products: [productName],
-          })
-        }
       />
     </div>
   );

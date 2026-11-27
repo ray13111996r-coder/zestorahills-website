@@ -4,17 +4,16 @@ import { ProductImage } from './ProductImage';
 
 interface HeroProps {
   onShopRetail: () => void;
-  onBulkInquiry: () => void;
 }
 
 const PROVENANCE_METRICS = [
   { value: '1,200m+', label: 'Western Ghats Elevation' },
   { value: '14 Products', label: 'Spices · Coffee · Infusions' },
   { value: '50g – 500g', label: 'Curated Retail Packs' },
-  { value: 'Retail & Trade', label: 'Domestic and bulk enquiries' },
+  { value: '14 Products', label: 'Spices · Coffee · Infusions' },
 ];
 
-export function Hero({ onShopRetail, onBulkInquiry }: HeroProps) {
+export function Hero({ onShopRetail }: HeroProps) {
   return (
     <section className="bg-[#173C2B] text-[#F3EBDD]">
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8 pt-12 pb-12 lg:pt-16 lg:pb-16">
@@ -47,13 +46,7 @@ export function Hero({ onShopRetail, onBulkInquiry }: HeroProps) {
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
 
-              <button
-                type="button"
-                onClick={onBulkInquiry}
-                className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-md border border-[#D6BD83]/45 bg-transparent px-7 py-3 text-sm font-medium text-[#F3EBDD] transition-colors duration-150 hover:border-[#D6BD83] hover:bg-[#244B35] whitespace-nowrap shrink-0 cursor-pointer"
-              >
-                <span>Bulk &amp; Export Inquiry</span>
-              </button>
+
             </div>
           </div>
 
