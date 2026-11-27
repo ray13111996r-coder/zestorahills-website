@@ -114,7 +114,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
               Request a wholesale quotation or speak directly with our sourcing desk.
             </h1>
             <p className="mt-4 text-base leading-relaxed text-[#EFEADF]/82">
-              Whether you need 100g retail guidance, a 25kg domestic wholesale consignment, or FOB
+              Whether you need 50g–500g retail packs, a 25kg domestic wholesale consignment, or FOB
               Cochin export pricing with FSSAI and Spices Board documentation, our team responds
               promptly.
             </p>
@@ -385,7 +385,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                 <div>
                   <div className="flex items-baseline justify-between">
                     <p className="text-xs font-medium text-[#4A5D52]">
-                      Harvests of Interest ({selectedProducts.length} selected)
+                      Products of Interest ({selectedProducts.length} selected)
                     </p>
                     <button
                       type="button"
@@ -398,7 +398,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       }
                       className="text-xs font-medium text-[#966D28] hover:text-[#132A1E] cursor-pointer"
                     >
-                      {selectedProducts.length === PRODUCTS.length ? 'Clear All' : 'Select All 10'}
+                      {selectedProducts.length === PRODUCTS.length ? 'Clear All' : 'Select All 14'}
                     </button>
                   </div>
 
