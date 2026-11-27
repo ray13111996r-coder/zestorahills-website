@@ -12,7 +12,6 @@ interface NavbarProps {
 
 const NAV_ITEMS: { id: PageRoute; label: string }[] = [
   { id: 'home', label: 'Shop' },
-  { id: 'wholesale', label: 'Wholesale' },
   { id: 'story', label: 'Our Story' },
   { id: 'contact', label: 'Contact' },
 ];
