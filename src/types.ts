@@ -2,7 +2,7 @@ export type PageRoute = 'home' | 'wholesale' | 'story' | 'contact';
 
 export type PackSize = '50g' | '100g' | '200g' | '500g';
 
-export type ProductCategory = 'Whole Spices' | 'Estate Coffee' | 'Infused Teas';
+export type ProductCategory = 'Whole Spices' | 'Aromatics & Herbs' | 'Estate Coffee' | 'Infused Teas';
 
 export interface PackVariant {
   size: PackSize;
