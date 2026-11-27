@@ -76,14 +76,14 @@ export function ProductCatalog({
   }, [products, activeCategory, searchQuery, sortBy, selectedPacks]);
 
   return (
-    <section id="retail-catalog" className="mx-auto max-w-[1280px] px-5 sm:px-8 py-16 sm:py-20">
+    <section id="retail-catalog" className="mx-auto max-w-[1280px] px-4 sm:px-8 py-11 sm:py-16 lg:py-20">
       {/* Section Header */}
-      <div className="flex flex-col gap-6 border-b border-[#173C2B]/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
+      <div className="flex flex-col gap-5 sm:gap-6 border-b border-[#173C2B]/10 pb-6 sm:pb-8 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-2xl">
           <p className="text-xs font-medium tracking-wide text-[#987B43]">
             SPICES · COFFEE · INFUSED TEAS
           </p>
-          <h2 className="mt-2 font-serif text-3xl sm:text-4xl font-medium tracking-tight text-[#173C2B] text-balance">
+          <h2 className="mt-2 font-serif text-[2rem] sm:text-4xl font-medium tracking-tight text-[#173C2B] text-balance">
             The Western Ghats Collection
           </h2>
           <p className="mt-2.5 text-sm sm:text-base text-[#52665A]">
@@ -93,7 +93,7 @@ export function ProductCatalog({
         </div>
 
         {/* Search & Sort Controls */}
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:items-center">
           <div className="relative">
             <Search
               className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#718276]"
@@ -123,11 +123,11 @@ export function ProductCatalog({
       </div>
 
       {/* Category Filter Tabs */}
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+      <div className="mt-5 flex flex-col items-start justify-between gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
         <div
           role="tablist"
           aria-label="Filter by harvest category"
-          className="flex flex-wrap items-center gap-1.5 rounded-lg bg-[#E9E2D3] p-1"
+          className="flex w-full items-center gap-1.5 overflow-x-auto rounded-lg bg-[#E9E2D3] p-1 sm:w-auto sm:flex-wrap"
         >
           {CATEGORY_TABS.map((tab) => {
             const isSelected = activeCategory === tab.value;
@@ -174,7 +174,7 @@ export function ProductCatalog({
           </button>
         </div>
       ) : (
-        <div className="mt-8 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 sm:mt-8 grid grid-cols-1 gap-4 sm:gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {filteredProducts.map((product) => {
             const currentPack = selectedPacks[product.id] ?? (Object.keys(product.packs)[0] as PackSize);
             const variant = product.packs[currentPack];
@@ -199,13 +199,13 @@ export function ProductCatalog({
                     src={product.image}
                     alt={product.imageAlt}
                     title={product.name}
-                    className="flex aspect-[4/3] w-full items-center justify-center"
-                    imgClassName="!object-contain p-5 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+                    className="flex aspect-[1/1] sm:aspect-[4/3] w-full items-center justify-center"
+                    imgClassName="!object-contain p-3 sm:p-5 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                   />
                 </button>
 
                 {/* Card Body */}
-                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                <div className="flex flex-1 flex-col p-4 sm:p-6">
                   {/* Quiet Unboxed Metadata */}
                   <div className="flex items-center gap-1.5 text-xs text-[#718276] truncate">
                     <span className="truncate">{product.origin}</span>
@@ -214,15 +214,15 @@ export function ProductCatalog({
                   </div>
 
                   {/* Title & Price Row */}
-                  <div className="mt-2 flex items-baseline justify-between gap-3">
+                  <div className="mt-2 flex flex-col items-start justify-between gap-1 sm:flex-row sm:items-baseline sm:gap-3">
                     <button
                       type="button"
                       onClick={() => onInspectProduct(product, currentPack)}
-                      className="text-left font-serif text-2xl font-semibold leading-snug text-[#173C2B] transition-colors hover:text-[#987B43] cursor-pointer"
+                      className="text-left font-serif text-xl sm:text-2xl font-semibold leading-snug text-[#173C2B] transition-colors hover:text-[#987B43] cursor-pointer"
                     >
                       {product.name}
                     </button>
-                    <span className="text-base font-semibold text-[#173C2B] tabular-nums whitespace-nowrap shrink-0">
+                    <span className="text-sm sm:text-base font-semibold text-[#173C2B] tabular-nums whitespace-nowrap shrink-0">
                       {!hasPrice ? 'Price to be confirmed' : variant?.isActive === false ? 'Coming soon' : !inStock ? 'Out of stock' : `₹${variant!.priceInr.toLocaleString('en-IN')}`}
                     </span>
                   </div>
@@ -233,12 +233,12 @@ export function ProductCatalog({
 
                   {/* Contiguous Purchase Controls */}
                   <div className="mt-auto pt-5">
-                    <div className="flex items-center justify-between gap-3 border-t border-[#173C2B]/8 pt-4">
+                    <div className="flex items-center justify-between flex-wrap gap-2 sm:gap-3 border-t border-[#173C2B]/8 pt-4">
                       {/* Pack Size Selector */}
                       <div
                         role="group"
                         aria-label={`Select pack size for ${product.name}`}
-                        className="inline-flex rounded-md bg-[#E9E2D3] p-1"
+                        className="inline-flex max-w-full rounded-md bg-[#E9E2D3] p-1"
                       >
                         {(Object.keys(product.packs) as PackSize[]).map((size) => {
                           const active = currentPack === size;
@@ -248,7 +248,7 @@ export function ProductCatalog({
                               type="button"
                               onClick={() => handlePackSelect(product.id, size)}
                               aria-pressed={active}
-                              className={`min-h-[34px] rounded px-3 text-xs font-semibold tabular-nums transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer ${
+                              className={`min-h-[34px] rounded px-2.5 sm:px-3 text-xs font-semibold tabular-nums transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer ${
                                 active
                                   ? 'bg-[#173C2B] text-[#F3EBDD]'
                                   : 'text-[#52665A] hover:text-[#173C2B]'

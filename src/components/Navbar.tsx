@@ -26,7 +26,7 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#173C2B]/10 bg-[#F3EBDD]/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-[74px] max-w-[1280px] items-center justify-between gap-8 px-5 sm:px-8">
+      <div className="mx-auto flex h-[64px] sm:h-[74px] max-w-[1280px] items-center justify-between gap-3 sm:gap-8 px-4 sm:px-8">
         {/* Zone 1: Uploaded Zestora Hills Brand Logo */}
         <button
           type="button"
@@ -34,7 +34,7 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
           aria-label="Zestora Hills Home"
           className="flex items-center shrink-0 transition-opacity duration-150 hover:opacity-85 cursor-pointer"
         >
-          <span className="block h-[60px] w-[86px] overflow-hidden">
+          <span className="block h-[52px] w-[74px] sm:h-[60px] sm:w-[86px] overflow-hidden">
             <img
               src={BRAND_LOGO}
               alt="Zestora Hills original brand logo"
@@ -71,12 +71,12 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
         </nav>
 
         {/* Zone 3: Single primary action (Shopping Bag) + mobile menu trigger */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <button
             type="button"
             onClick={onOpenCart}
             aria-label={`Open shopping bag, ${cartCount} items`}
-            className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-[#173C2B] px-4 py-2 text-sm font-medium text-[#F3EBDD] transition-colors duration-150 hover:bg-[#244B35] whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-[#173C2B] px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-[#F3EBDD] transition-colors duration-150 hover:bg-[#244B35] whitespace-nowrap shrink-0 cursor-pointer"
           >
             <ShoppingBag className="h-4 w-4 text-[#D6BD83]" aria-hidden="true" />
             <span className="tabular-nums">Bag ({cartCount})</span>

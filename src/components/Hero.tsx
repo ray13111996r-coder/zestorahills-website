@@ -16,8 +16,8 @@ const PROVENANCE_METRICS = [
 export function Hero({ onShopRetail }: HeroProps) {
   return (
     <section className="bg-[#173C2B] text-[#F3EBDD]">
-      <div className="mx-auto max-w-[1280px] px-5 sm:px-8 pt-12 pb-12 lg:pt-16 lg:pb-16">
-        <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-8 pt-9 pb-9 sm:pt-12 sm:pb-12 lg:pt-16 lg:pb-16">
+        <div className="grid grid-cols-1 items-stretch gap-7 sm:gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Left Editorial Column */}
           <div className="flex flex-col justify-center lg:col-span-6">
             <div className="flex flex-wrap items-center gap-2 text-xs tracking-wide text-[#D6BD83]">
@@ -28,15 +28,15 @@ export function Hero({ onShopRetail }: HeroProps) {
               <span>zestorahills.in</span>
             </div>
 
-            <h1 className="mt-5 font-serif text-[clamp(2.5rem,4.3vw,4rem)] font-medium leading-[1.08] tracking-tight text-[#F3EBDD] text-balance">
+            <h1 className="mt-5 font-serif text-[clamp(2.25rem,8vw,4rem)] font-medium leading-[1.08] tracking-tight text-[#F3EBDD] text-balance">
               A TASTE OF THE WESTERN GHATS
             </h1>
 
-            <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-[#E9E2D3]/85 tracking-[0.01em]">
+            <p className="mt-4 sm:mt-5 max-w-[54ch] text-sm sm:text-base leading-relaxed text-[#E9E2D3]/85 tracking-[0.01em]">
               Nature's finest, carefully selected and beautifully delivered. Discover whole spices, roasted coffee and botanical infusions inspired by the Western Ghats.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-4">
               <button
                 type="button"
                 onClick={onShopRetail}
@@ -52,7 +52,7 @@ export function Hero({ onShopRetail }: HeroProps) {
 
           {/* Right Photographic Anchor */}
           <div className="lg:col-span-6">
-            <div className="relative h-full min-h-[300px] sm:min-h-[380px] lg:min-h-[440px] overflow-hidden rounded-lg border border-[#D6BD83]/20">
+            <div className="relative h-[250px] sm:h-auto min-h-[250px] sm:min-h-[380px] lg:min-h-[440px] overflow-hidden rounded-lg border border-[#D6BD83]/20">
               <ProductImage
                 src={HERO_IMAGE}
                 alt="Western Ghats spices including green cardamom, Tellicherry black pepper, cinnamon quills, cloves, star anise, and roasted coffee beans on slate and travertine"
@@ -79,8 +79,8 @@ export function Hero({ onShopRetail }: HeroProps) {
         </div>
 
         {/* Full-Width Provenance Strip below Hero Split */}
-        <div className="mt-12 border-t border-[#F3EBDD]/12 pt-7">
-          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">
+        <div className="mt-9 sm:mt-12 border-t border-[#F3EBDD]/12 pt-6 sm:pt-7">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5 sm:gap-6 lg:grid-cols-4 lg:gap-8">
             {PROVENANCE_METRICS.map((item) => (
               <div key={item.label} className="space-y-1">
                 <p className="font-serif text-xl sm:text-2xl font-medium text-[#D6BD83] tabular-nums">
