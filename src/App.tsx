@@ -131,8 +131,8 @@ export default function App() {
     const loadCatalog = async () => {
       const { data, error } = await client
         .from('products')
-        .select('id,name,category,active,product_variants(pack_size,price,sku,stock_quantity,is_active)')
-        .eq('active', true);
+        .select('id,name,category,is_active,product_variants(pack_size,price,sku,stock_quantity,is_active)')
+        .eq('is_active', true);
       if (error || !data || cancelled) return;
       const databaseProducts = data.map((row: any) => mapDatabaseProduct(row));
       const combined = databaseProducts;
