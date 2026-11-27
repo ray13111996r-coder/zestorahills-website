@@ -4,7 +4,6 @@
  */
 
 import { useEffect, useState } from 'react';
-import { ArrowRight, MessageCircle } from 'lucide-react';
 import { CartDrawer } from './components/CartDrawer';
 import { ContactQuotePage } from './components/ContactQuotePage';
 import { Footer } from './components/Footer';
@@ -12,11 +11,10 @@ import { Hero } from './components/Hero';
 import { Navbar } from './components/Navbar';
 import { ProductCatalog } from './components/ProductCatalog';
 import { ProductDetailModal } from './components/ProductDetailModal';
-import { ProductImage } from './components/ProductImage';
 import { StoryPage } from './components/StoryPage';
-import { BRAND_CONTACT, HERO_IMAGE, PRODUCTS, STORY_IMAGE } from './data/products';
+import { HERO_IMAGE, PRODUCTS } from './data/products';
 import { supabase } from './supabase';
-import { CartItem, PackSize, PageRoute, Product, QuotePrefill } from './types';
+import { CartItem, PackSize, PageRoute, Product } from './types';
 
 const CART_STORAGE_KEY = 'zestora_hills_cart_v1';
 
@@ -273,9 +271,7 @@ export default function App() {
           addToCart(product, packSize, qty);
           setCartOpen(true);
         }}
-        onRequestBulk={(productName) =>
-          navigateTo('contact')
-        }
+        onRequestBulk={() => navigateTo('contact')}
       />
     </div>
   );
