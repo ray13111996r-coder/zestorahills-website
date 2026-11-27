@@ -14,7 +14,7 @@ const INQUIRY_MODES: InquiryMode[] = [
 ];
 
 const VOLUME_OPTIONS = [
-  'Evaluation Sample Kit (100g × 6 SKUs)',
+  'Evaluation Sample Kit',
   '10 kg – 50 kg (Domestic Wholesale)',
   '50 kg – 250 kg (Air Freight / Regional Bulk)',
   '250 kg – 1,000 kg (Export Consolidated)',
@@ -25,7 +25,7 @@ const VOLUME_OPTIONS = [
 const PACKAGING_OPTIONS = [
   '5kg Vacuum Foil',
   '25kg Export Sack',
-  '100g / 200g Retail Pouches',
+  'Retail Packs (50g / 100g / 200g / 500g)',
   'Private Label / Custom Tins',
 ];
 
@@ -64,7 +64,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
 
   const dynamicWhatsAppHref = useMemo(() => {
     const productList =
-      selectedProducts.length > 0 ? selectedProducts.join(', ') : 'Single-Origin Spices & Coffee';
+      selectedProducts.length > 0 ? selectedProducts.join(', ') : 'Western Ghats spices, coffee & infused teas';
     const lines = [
       `Hello Zestora Hills (zestorahills.in),`,
       `Inquiry Type: ${mode}`,
@@ -83,7 +83,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
   }, [mode, fullName, company, selectedProducts, volume, packaging, destination, message]);
 
   const directWhatsAppHref = `https://wa.me/${BRAND_CONTACT.whatsappNumber}?text=${encodeURIComponent(
-    'Hello Zestora Hills! I would like to inquire about single-origin Western Ghats spices and estate coffee (retail / bulk export).'
+    'Hello Zestora Hills! I would like to inquire about Western Ghats spices, roasted coffee and infused teas (retail / wholesale).'
   )}`;
 
   const handleSubmit = (e: FormEvent) => {
@@ -114,8 +114,8 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
               Request a wholesale quotation or speak directly with our sourcing desk.
             </h1>
             <p className="mt-4 text-base leading-relaxed text-[#EFEADF]/82">
-              Whether you need 50g–500g retail packs, a 25kg domestic wholesale consignment, or FOB
-              Cochin export pricing with FSSAI and Spices Board documentation, our team responds
+              Whether you need 50g–500g retail packs, a bulk domestic wholesale consignment, or FOB
+              export pricing and applicable product documentation, our team responds
               promptly.
             </p>
           </div>
