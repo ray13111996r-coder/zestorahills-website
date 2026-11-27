@@ -90,7 +90,7 @@ export function CartDrawer({
       if (!product) return null;
 
       const variant = product.packs[item.packSize];
-      if (!variant || variant.priceInr <= 0) return null;
+      if (!variant || variant.priceInr <= 0 || variant.isActive === false) return null;
 
       return {
         ...item,
@@ -126,6 +126,11 @@ export function CartDrawer({
       !pincode.trim()
     ) {
       setFormError('Please complete all required delivery details.');
+      return;
+    }
+
+    if (resolvedItems.length !== items.length) {
+      setFormError('Some items in your bag are unavailable or have a price pending. Please remove them before checkout.');
       return;
     }
 
