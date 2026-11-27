@@ -41,7 +41,7 @@ function readInitialCart(): CartItem[] {
       .filter(
         (item): item is CartItem =>
           typeof item?.productId === 'string' &&
-          (item?.packSize === '100g' || item?.packSize === '200g') &&
+          (['50g', '100g', '200g', '500g'].includes(item?.packSize)) &&
           typeof item?.quantity === 'number' &&
           item.quantity > 0
       );
