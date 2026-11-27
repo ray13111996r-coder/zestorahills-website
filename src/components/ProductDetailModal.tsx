@@ -41,6 +41,7 @@ export function ProductDetailModal({
   const safePack = product.packs[packSize] ? packSize : availablePacks[0];
   const variant = product.packs[safePack]!;
   const hasPrice = variant.priceInr > 0;
+  const inStock = variant.stockQuantity === undefined || variant.stockQuantity > 0;
   const lineTotal = variant.priceInr * quantity;
 
   const handleConfirmAdd = () => {
@@ -177,11 +178,11 @@ export function ProductDetailModal({
             <button
               type="button"
               onClick={handleConfirmAdd}
-              disabled={!hasPrice}
+              disabled={!hasPrice || !inStock}
               className="mt-6 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-md bg-[#132A1E] px-6 py-3 text-sm font-semibold text-[#F7F4EC] transition-colors hover:bg-[#1B3B2B] cursor-pointer"
             >
               <span className="tabular-nums">
-                {hasPrice ? `Add to Bag · ₹${lineTotal.toLocaleString('en-IN')}` : 'Price to be confirmed tomorrow'}
+                {!hasPrice ? 'Price to be confirmed' : !inStock ? 'Currently out of stock' : `Add to Bag · ₹${lineTotal.toLocaleString('en-IN')}`}
               </span>
             </button>
 
