@@ -179,6 +179,7 @@ export function ProductCatalog({
             const currentPack = selectedPacks[product.id] ?? (Object.keys(product.packs)[0] as PackSize);
             const variant = product.packs[currentPack];
             const hasPrice = Boolean(variant && variant.priceInr > 0);
+            const inStock = variant?.stockQuantity === undefined || variant.stockQuantity > 0;
             const isAdded = Boolean(recentlyAdded[product.id]);
 
             return (
@@ -225,7 +226,7 @@ export function ProductCatalog({
                       {product.name}
                     </button>
                     <span className="text-base font-semibold text-[#132A1E] tabular-nums whitespace-nowrap shrink-0">
-                      {hasPrice ? `₹${variant!.priceInr.toLocaleString('en-IN')}` : 'Price to be confirmed'}
+                      {!hasPrice ? 'Price to be confirmed' : !inStock ? 'Out of stock' : `₹${variant!.priceInr.toLocaleString('en-IN')}`}
                     </span>
                   </div>
 
@@ -274,7 +275,7 @@ export function ProductCatalog({
                     <button
                       type="button"
                       onClick={() => handleAdd(product)}
-                      disabled={!hasPrice}
+                      disabled={!hasPrice || !inStock}
                       className={`mt-3 inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors duration-150 whitespace-nowrap cursor-pointer ${
                         isAdded
                           ? 'bg-[#274D3A] text-[#F7F4EC]'
@@ -286,8 +287,10 @@ export function ProductCatalog({
                           <Check className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
                           <span>Added {currentPack} to Bag</span>
                         </>
-                      ) : !hasPrice ? (
+                       ) : !hasPrice ? (
                         <span>Price to be confirmed</span>
+                      ) : !inStock ? (
+                        <span>Currently out of stock</span>
                       ) : (
                         <>
                           <Plus className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
