@@ -71,7 +71,7 @@ export function WholesalePage({ onRequestQuote }: WholesalePageProps) {
                 <span aria-hidden="true">·</span>
                 <span>FOB Cochin &amp; Air Freight</span>
                 <span aria-hidden="true">·</span>
-                <span>FSSAI &amp; Spices Board Ready</span>
+                <span>Compliance documents available on request</span>
               </div>
 
               <h1 className="mt-4 font-serif text-[clamp(2.25rem,4vw,3.75rem)] font-medium leading-[1.1] tracking-tight text-[#F7F4EC] text-balance">
@@ -183,7 +183,7 @@ export function WholesalePage({ onRequestQuote }: WholesalePageProps) {
               </h2>
             </div>
             <p className="text-xs text-[#4A5D52]">
-              All 10 single-origin SKUs available for consolidated shipments.
+              14 product selections across spices, coffee and infused teas.
             </p>
           </div>
 
@@ -259,7 +259,7 @@ export function WholesalePage({ onRequestQuote }: WholesalePageProps) {
             03. Regulatory &amp; Export Compliance
           </p>
           <h2 className="mt-2 font-serif text-3xl sm:text-4xl font-medium text-[#132A1E] text-balance">
-            FSSAI, Spices Board &amp; international customs documentation ready.
+            Please contact our team to discuss applicable product and export documentation.
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#4A5D52]">
             Designed for frictionless clearance into the EU, UK, UAE, USA, Japan, and domestic
@@ -302,7 +302,7 @@ export function WholesalePage({ onRequestQuote }: WholesalePageProps) {
               </h3>
               <p className="mt-2 text-sm text-[#EFEADF]/80">
                 Share your target grades, destination port, and monthly volumes across any of our{' '}
-                {PRODUCTS.length} single-origin lines for a CIF/FOB quotation within 24 business
+                {PRODUCTS.length} product lines for a CIF/FOB quotation within 24 business
                 hours.
               </p>
             </div>
