@@ -8,6 +8,7 @@ export interface PackVariant {
   size: PackSize;
   priceInr: number;
   sku: string;
+  stockQuantity?: number;
 }
 
 export interface Product {
