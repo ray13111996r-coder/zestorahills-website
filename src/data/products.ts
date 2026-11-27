@@ -14,12 +14,12 @@ export const BRAND_LOGO = '/assets/aistudio/ZESTORA_HILLS_LOGO_87d02c2a.jpeg';
 export const HERO_IMAGE = '/src/assets/images/hero_western_ghats_spices_1795192090415.jpg';
 export const STORY_IMAGE = '/src/assets/images/story_western_ghats_estate_1795192095551.jpg';
 
-export const PRODUCTS: Product[] = [
+const LEGACY_PRODUCTS: Product[] = [
   {
     id: 'whole-black-pepper',
-    supabaseId: 1,
+    supabaseId: null,
     slug: 'whole-black-pepper',
-    name: 'Whole Black Pepper',
+    name: 'Black Pepper',
     botanicalName: 'Piper nigrum',
     category: 'Whole Spices',
     origin: 'Wayanad, Kerala',
@@ -41,7 +41,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'green-cardamom',
-    supabaseId: 2,
+    supabaseId: null,
     slug: 'green-cardamom',
     name: 'Green Cardamom',
     botanicalName: 'Elettaria cardamomum',
@@ -65,7 +65,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'cinnamon',
-    supabaseId: 3,
+    supabaseId: null,
     slug: 'cinnamon',
     name: 'Cinnamon',
     botanicalName: 'Cinnamomum verum',
@@ -90,7 +90,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'dried-ginger',
-    supabaseId: 4,
+    supabaseId: null,
     slug: 'dried-ginger',
     name: 'Dried Ginger',
     botanicalName: 'Zingiber officinale',
@@ -114,7 +114,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'cloves',
-    supabaseId: 5,
+    supabaseId: null,
     slug: 'cloves',
     name: 'Cloves',
     botanicalName: 'Syzygium aromaticum',
@@ -138,7 +138,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'star-anise',
-    supabaseId: 6,
+    supabaseId: null,
     slug: 'star-anise',
     name: 'Star Anise',
     botanicalName: 'Illicium verum',
@@ -162,9 +162,9 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'dried-bay-leaf',
-    supabaseId: 7,
+    supabaseId: null,
     slug: 'dried-bay-leaf',
-    name: 'Dried Bay Leaf',
+    name: 'Bay Leaf',
     botanicalName: 'Cinnamomum tamala',
     category: 'Aromatics & Herbs',
     origin: 'Western Ghats Ridge Groves',
@@ -186,7 +186,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'dried-rosemary',
-    supabaseId: 8,
+    supabaseId: null,
     slug: 'dried-rosemary',
     name: 'Dried Rosemary',
     botanicalName: 'Salvia rosmarinus',
@@ -210,7 +210,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'nutmeg',
-    supabaseId: 9,
+    supabaseId: null,
     slug: 'nutmeg',
     name: 'Nutmeg',
     botanicalName: 'Myristica fragrans',
@@ -234,7 +234,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'roasted-coffee-beans',
-    supabaseId: 10,
+    supabaseId: null,
     slug: 'roasted-coffee-beans',
     name: 'Roasted Coffee Beans',
     botanicalName: 'Coffea arabica (S.795 & Kent)',
@@ -257,6 +257,96 @@ export const PRODUCTS: Product[] = [
     },
   },
 ];
+
+// Current retail collection. Existing prices are retained only for unchanged legacy spice packs.
+// Newly introduced pack sizes and products intentionally carry a zero-price placeholder until pricing is confirmed.
+const spiceIds = new Set([
+  'whole-black-pepper', 'green-cardamom', 'cinnamon', 'dried-ginger',
+  'cloves', 'star-anise', 'dried-bay-leaf', 'nutmeg',
+]);
+const legacySpices = LEGACY_PRODUCTS.filter((p) => spiceIds.has(p.id)).map((p) => ({
+  ...p,
+  category: 'Whole Spices' as const,
+  packs: {
+    '50g': { size: '50g' as const, priceInr: 0, sku: `ZH-${p.id.toUpperCase().replaceAll('-', '').slice(0, 6)}-50` },
+    ...p.packs,
+  },
+}));
+const coffeeBase = LEGACY_PRODUCTS.find((p) => p.id === 'roasted-coffee-beans')!;
+const coffeePack = { '500g': { size: '500g' as const, priceInr: 0, sku: 'ZH-COF-500' } };
+const coffeeProducts: Product[] = [
+  {
+    ...coffeeBase, id: 'espresso-coffee-blend', supabaseId: null, slug: 'espresso-coffee-blend',
+    name: 'Espresso Coffee – Arabica & Robusta Blend', category: 'Estate Coffee',
+    botanicalName: 'Arabica & Robusta blend', grade: 'Medium-Dark Roast',
+    shortNote: 'A balanced Arabica and Robusta blend developed for espresso extraction.',
+    description: 'A medium-dark roasted blend of Arabica and Robusta coffee, prepared for espresso-style brewing.',
+    tastingNotes: ['Roasted Cocoa', 'Caramel', 'Full-Bodied Finish'],
+    culinaryUses: 'Designed for espresso machines and milk-based coffee drinks.',
+    specHighlight: 'Arabica & Robusta Blend · Medium-Dark Roast',
+    packs: coffeePack,
+  },
+  {
+    ...coffeeBase, id: 'south-indian-filter-coffee', supabaseId: null, slug: 'south-indian-filter-coffee',
+    name: 'South Indian Filter Coffee – Arabica & Robusta Blend', category: 'Estate Coffee',
+    botanicalName: 'Arabica & Robusta blend', grade: 'Medium-Dark Roast',
+    shortNote: 'A comforting Arabica and Robusta blend for traditional South Indian filter brewing.',
+    description: 'A medium-dark roasted Arabica and Robusta blend intended for traditional South Indian filter coffee preparation.',
+    tastingNotes: ['Deep Roast', 'Chocolate', 'Rounded Body'],
+    culinaryUses: 'Prepared in a traditional South Indian metal filter; serve with hot milk if desired.',
+    specHighlight: 'Arabica & Robusta Blend · Medium-Dark Roast',
+    packs: { '500g': { size: '500g', priceInr: 0, sku: 'ZH-SIF-500' } },
+  },
+  {
+    ...coffeeBase, id: 'whole-roasted-coffee-beans', supabaseId: null, slug: 'whole-roasted-coffee-beans',
+    name: 'Whole Roasted Coffee Beans', category: 'Estate Coffee',
+    botanicalName: 'Roasted whole coffee beans', grade: 'Whole Bean · 500g',
+    shortNote: 'Whole roasted coffee beans, ready to grind fresh for your preferred brew.',
+    description: 'Whole roasted coffee beans supplied unground so you can grind them fresh for your preferred brewing method.',
+    tastingNotes: ['Fresh Roast Aroma', 'Cocoa', 'Warm Nutty Notes'],
+    culinaryUses: 'Grind to suit espresso, South Indian filter, moka pot or other brewing methods.',
+    specHighlight: 'Whole Roasted Beans · 500g',
+    packs: { '500g': { size: '500g', priceInr: 0, sku: 'ZH-WRB-500' } },
+  },
+];
+const teaBase = LEGACY_PRODUCTS.find((p) => p.id === 'dried-bay-leaf')!;
+const teaProducts: Product[] = [
+  {
+    ...teaBase, id: 'hibiscus-infusion-tea', supabaseId: null, slug: 'hibiscus-infusion-tea',
+    name: 'Hibiscus Infusion Tea', category: 'Infused Teas',
+    botanicalName: 'Hibiscus sabdariffa', grade: 'Dried Hibiscus Infusion',
+    shortNote: 'A vivid floral infusion with a naturally tart character.',
+    description: 'Dried hibiscus petals for a bright, ruby-coloured herbal infusion. Enjoy hot or chilled.',
+    tastingNotes: ['Floral', 'Tart', 'Cranberry-Like'],
+    culinaryUses: 'Steep in hot water and enjoy plain or with your preferred sweetener.',
+    specHighlight: 'Herbal Infusion · 50g',
+    packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-HIB-50' } },
+  },
+  {
+    ...teaBase, id: 'blue-pea-infusion-tea', supabaseId: null, slug: 'blue-pea-infusion-tea',
+    name: 'Blue Pea Infusion Tea', category: 'Infused Teas',
+    botanicalName: 'Clitoria ternatea', grade: 'Dried Blue Pea Flowers',
+    shortNote: 'A naturally blue botanical infusion made from dried butterfly pea flowers.',
+    description: 'Dried blue pea flowers that brew into a striking blue herbal infusion, with a colour-changing response to citrus.',
+    tastingNotes: ['Delicate', 'Earthy', 'Mild Floral'],
+    culinaryUses: 'Steep in hot water; add lemon or lime to see the infusion shift in colour.',
+    specHighlight: 'Herbal Infusion · 50g',
+    packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-BPT-50' } },
+  },
+  {
+    ...teaBase, id: 'lemongrass-infusion-tea', supabaseId: null, slug: 'lemongrass-infusion-tea',
+    name: 'Lemongrass Infusion Tea', category: 'Infused Teas',
+    botanicalName: 'Cymbopogon citratus', grade: 'Dried Lemongrass',
+    shortNote: 'A refreshing herbal infusion with clean citrus notes.',
+    description: 'Dried lemongrass prepared for a light, fragrant herbal infusion.',
+    tastingNotes: ['Lemon Zest', 'Fresh Herb', 'Clean Finish'],
+    culinaryUses: 'Steep in hot water and enjoy as a refreshing caffeine-free infusion.',
+    specHighlight: 'Herbal Infusion · 50g',
+    packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-LEM-50' } },
+  },
+];
+export const PRODUCTS: Product[] = [...legacySpices, ...coffeeProducts, ...teaProducts];
+
 
 export const WHOLESALE_PACKAGING_OPTIONS = [
   {
@@ -312,24 +402,24 @@ export const MOQ_TIERS = [
 
 export const COMPLIANCE_CREDENTIALS = [
   {
-    code: 'FSSAI Central License',
+    code: 'FSSAI Licensing',
     scope: 'Food Safety & Standards Authority of India',
-    detail: 'Full compliance for domestic wholesale, retail food packing, hygienic curing, and traceable lot coding across every retail and bulk batch.',
+    detail: 'Applicable licence status and permitted activities will be confirmed before product sale or dispatch.',
   },
   {
-    code: 'Spices Board of India (CRES)',
-    scope: 'Certificate of Registration as Exporter of Spices',
-    detail: 'Registered export readiness aligned with Spices Board quality grading protocols, mandatory pre-shipment sampling, and spice-specific ASTA cleanliness grades.',
+    code: 'Spices Board Registration',
+    scope: 'Exporter registration for eligible spice products',
+    detail: 'Registration requirements and status will be confirmed before accepting any export order for regulated products.',
   },
   {
-    code: 'IEC & Customs Documentation',
-    scope: 'DGFT Import Export Code & Origin Papers',
-    detail: 'Complete commercial invoice, packing list, Certificate of Origin (CoO / GSP), Phytosanitary Certificate, and fumigation clearance as required by destination markets.',
+    code: 'IEC & Export Documentation',
+    scope: 'DGFT Import Export Code and destination-specific paperwork',
+    detail: 'Required documents depend on the product and destination. Availability will be confirmed for each export enquiry.',
   },
   {
-    code: 'NABL / SGS Analytical Lab Testing',
-    scope: 'Third-Party Residue & Microbiological COA',
-    detail: 'Batch-wise testing available for moisture %, volatile oil %, piperine/eugenol levels, aflatoxin (EU/US limits), heavy metals, and ETO-free pesticide residue screening.',
+    code: 'Product Testing',
+    scope: 'Independent laboratory testing where required',
+    detail: 'Testing and certificates of analysis can be discussed based on buyer specifications and applicable requirements.',
   },
 ];
 
@@ -366,7 +456,7 @@ export const WESTERN_GHATS_REGIONS = [
     region: 'Nilgiris & Kodaikanal',
     elevation: '1,650m – 2,000m',
     microclimate: 'Crisp temperate highland air, misty mornings',
-    harvests: 'Sun-Cured Mountain Rosemary',
+    harvests: 'Botanical infusion ingredients; origin confirmed by lot',
     window: 'Year-Round',
   },
 ];

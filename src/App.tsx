@@ -15,10 +15,76 @@ import { ProductDetailModal } from './components/ProductDetailModal';
 import { ProductImage } from './components/ProductImage';
 import { StoryPage } from './components/StoryPage';
 import { WholesalePage } from './components/WholesalePage';
-import { BRAND_CONTACT, PRODUCTS, STORY_IMAGE } from './data/products';
+import { BRAND_CONTACT, HERO_IMAGE, PRODUCTS, STORY_IMAGE } from './data/products';
+import { supabase } from './supabase';
 import { CartItem, PackSize, PageRoute, Product, QuotePrefill } from './types';
 
 const CART_STORAGE_KEY = 'zestora_hills_cart_v1';
+
+
+const SUPPORTED_PACK_SIZES: PackSize[] = ['50g', '100g', '200g', '500g'];
+
+function normalizeProductName(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function mapDatabaseProduct(row: any): Product {
+  const aliases: Record<string, string> = {
+    blackpepper: 'whole-black-pepper',
+    bayleaf: 'dried-bay-leaf',
+  };
+  const normalized = normalizeProductName(String(row.name ?? ''));
+  const staticProduct = PRODUCTS.find(
+    (product) =>
+      normalizeProductName(product.name) === normalized ||
+      product.id === aliases[normalized]
+  );
+  const variants = Array.isArray(row.product_variants) ? row.product_variants : [];
+  const activePacks: Partial<Record<PackSize, { size: PackSize; priceInr: number; sku: string; stockQuantity?: number; isActive?: boolean }>> = {};
+  for (const variant of variants) {
+    const size = String(variant.pack_size) as PackSize;
+    if (!SUPPORTED_PACK_SIZES.includes(size)) continue;
+    activePacks[size] = {
+      size,
+      priceInr: Number(variant.price) || 0,
+      sku: String(variant.sku ?? ''),
+      stockQuantity: variant.stock_quantity == null ? undefined : Number(variant.stock_quantity),
+      isActive: Boolean(variant.is_active),
+    };
+  }
+  const category = ['Whole Spices', 'Estate Coffee', 'Infused Teas', 'Aromatics & Herbs'].includes(row.category)
+    ? row.category
+    : 'Whole Spices';
+  const defaultPack: PackSize = category === 'Estate Coffee' ? '500g' : '50g';
+  const base: Product = staticProduct ?? {
+    id: `db-${row.id}`,
+    supabaseId: String(row.id),
+    slug: normalizeProductName(String(row.name ?? 'product')),
+    name: String(row.name ?? 'Zestora Hills Product'),
+    botanicalName: '',
+    category,
+    origin: 'Western Ghats',
+    elevation: '',
+    grade: 'Carefully selected',
+    harvestSeason: '',
+    shortNote: 'Carefully selected by Zestora Hills.',
+    description: 'A carefully selected product from the Zestora Hills collection.',
+    tastingNotes: [],
+    culinaryUses: 'Explore serving and preparation ideas.',
+    specHighlight: 'Zestora Hills Collection',
+    image: HERO_IMAGE,
+    imageAlt: String(row.name ?? 'Zestora Hills product'),
+    packs: { [defaultPack]: { size: defaultPack, priceInr: 0, sku: '' } },
+  };
+  return {
+    ...base,
+    id: staticProduct?.id ?? base.id,
+    supabaseId: String(row.id),
+    name: String(row.name ?? base.name),
+    category,
+    packs: Object.keys(activePacks).length > 0 ? activePacks : base.packs,
+  };
+}
 
 function readInitialRoute(): PageRoute {
   const hash = window.location.hash.replace('#', '').toLowerCase();
@@ -41,7 +107,7 @@ function readInitialCart(): CartItem[] {
       .filter(
         (item): item is CartItem =>
           typeof item?.productId === 'string' &&
-          (item?.packSize === '100g' || item?.packSize === '200g') &&
+          (['50g', '100g', '200g', '500g'].includes(item?.packSize)) &&
           typeof item?.quantity === 'number' &&
           item.quantity > 0
       );
@@ -52,6 +118,7 @@ function readInitialCart(): CartItem[] {
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageRoute>(readInitialRoute);
+  const [catalogProducts, setCatalogProducts] = useState<Product[]>(PRODUCTS);
   const [cartItems, setCartItems] = useState<CartItem[]>(readInitialCart);
   const [cartOpen, setCartOpen] = useState(false);
   const [inspectedProduct, setInspectedProduct] = useState<{
@@ -59,6 +126,25 @@ export default function App() {
     pack: PackSize;
   } | null>(null);
   const [quotePrefill, setQuotePrefill] = useState<QuotePrefill | null>(null);
+
+
+  useEffect(() => {
+    const client = supabase;
+    if (!client) return;
+    let cancelled = false;
+    const loadCatalog = async () => {
+      const { data, error } = await client
+        .from('products')
+        .select('id,name,category,active,product_variants(pack_size,price,sku,stock_quantity,is_active)')
+        .eq('active', true);
+      if (error || !data || cancelled) return;
+      const databaseProducts = data.map((row: any) => mapDatabaseProduct(row));
+      const combined = databaseProducts;
+      if (combined.length > 0 && !cancelled) setCatalogProducts(combined);
+    };
+    void loadCatalog();
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     try {
@@ -139,11 +225,11 @@ export default function App() {
   const totalBagCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const directWhatsAppHref = `https://wa.me/${BRAND_CONTACT.whatsappNumber}?text=${encodeURIComponent(
-    'Hello Zestora Hills! I would like to inquire about wholesale / export spice & estate coffee supply.'
+    'Hello Zestora Hills! I would like to inquire about wholesale / export spices, coffee and infused tea supply.'
   )}`;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7F4EC] text-[#132A1E]">
+    <div className="flex min-h-screen flex-col bg-[#F3EBDD] text-[#173C2B]">
       <Navbar
         activePage={activePage}
         onNavigate={navigateTo}
@@ -160,17 +246,17 @@ export default function App() {
             />
 
             <ProductCatalog
-              products={PRODUCTS}
+              products={catalogProducts}
               onAddToCart={(product, packSize) => addToCart(product, packSize, 1)}
               onInspectProduct={(product, pack) => setInspectedProduct({ product, pack })}
             />
 
             {/* Editorial Origin & Wholesale Bridge Section */}
-            <section className="border-t border-[#132A1E]/10 bg-[#EFEADF]/65">
+            <section className="border-t border-[#173C2B]/10 bg-[#E9E2D3]/65">
               <div className="mx-auto max-w-[1280px] px-5 sm:px-8 py-16 sm:py-20">
                 <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-12">
                   {/* Western Ghats Provenance Feature */}
-                  <div className="overflow-hidden rounded-lg border border-[#132A1E]/10 bg-[#FCFBF7] lg:col-span-7 flex flex-col">
+                  <div className="overflow-hidden rounded-lg border border-[#173C2B]/10 bg-[#F8F5EC] lg:col-span-7 flex flex-col">
                     <ProductImage
                       src={STORY_IMAGE}
                       alt="Misty spice and shade-grown coffee hills of the Western Ghats at sunrise"
@@ -178,13 +264,13 @@ export default function App() {
                       className="aspect-[16/9] w-full"
                     />
                     <div className="flex flex-1 flex-col p-6 sm:p-8">
-                      <p className="text-xs font-medium tracking-wide text-[#966D28]">
+                      <p className="text-xs font-medium tracking-wide text-[#987B43]">
                         Farm-to-Pack Provenance · Western Ghats
                       </p>
-                      <h2 className="mt-2 font-serif text-3xl font-medium text-[#132A1E] text-balance">
-                        Single-estate harvests from 900m to 2,000m elevation.
+                      <h2 className="mt-2 font-serif text-3xl font-medium text-[#173C2B] text-balance">
+                        Inspired by the rich highlands of the Western Ghats.
                       </h2>
-                      <p className="mt-3 text-sm leading-relaxed text-[#4A5D52]">
+                      <p className="mt-3 text-sm leading-relaxed text-[#52665A]">
                         By procuring directly at the farm gate in Idukki, Wayanad, Chikmagalur,
                         and the Nilgiris, we eliminate auction storage delays and protect the
                         volatile oils that define genuine Western Ghats spices and coffee.
@@ -193,7 +279,7 @@ export default function App() {
                         <button
                           type="button"
                           onClick={() => navigateTo('story')}
-                          className="inline-flex min-h-[42px] items-center gap-2 text-sm font-semibold text-[#132A1E] underline decoration-[#B88A3E] underline-offset-4 transition-colors hover:text-[#966D28] cursor-pointer"
+                          className="inline-flex min-h-[42px] items-center gap-2 text-sm font-semibold text-[#173C2B] underline decoration-[#B69A61] underline-offset-4 transition-colors hover:text-[#987B43] cursor-pointer"
                         >
                           <span>Read Our Western Ghats Story</span>
                           <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -203,32 +289,30 @@ export default function App() {
                   </div>
 
                   {/* Wholesale & Export Trade Feature */}
-                  <div className="flex flex-col justify-between rounded-lg bg-[#132A1E] p-7 sm:p-9 text-[#F7F4EC] lg:col-span-5">
+                  <div className="flex flex-col justify-between rounded-lg bg-[#173C2B] p-7 sm:p-9 text-[#F3EBDD] lg:col-span-5">
                     <div>
-                      <p className="text-xs font-medium tracking-wide text-[#D4AF6A]">
+                      <p className="text-xs font-medium tracking-wide text-[#D6BD83]">
                         Wholesale &amp; Export Desk
                       </p>
-                      <h2 className="mt-2 font-serif text-3xl font-medium leading-tight text-[#F7F4EC] text-balance">
+                      <h2 className="mt-2 font-serif text-3xl font-medium leading-tight text-[#F3EBDD] text-balance">
                         Bulk supply &amp; export readiness for global buyers.
                       </h2>
-                      <p className="mt-4 text-sm leading-relaxed text-[#EFEADF]/80">
-                        Available in 5kg nitrogen-flushed foil pouches, 25kg multi-wall export
-                        sacks, and private-label retail tins—backed by FSSAI, Spices Board (CRES),
-                        IEC, and NABL analytical reports.
+                      <p className="mt-4 text-sm leading-relaxed text-[#E9E2D3]/80">
+                        Discuss your retail, wholesale or export requirements with our team. Product availability, packaging, applicable licences and destination-specific documentation will be confirmed for each enquiry.
                       </p>
 
-                      <dl className="mt-6 space-y-3 border-t border-[#F7F4EC]/12 pt-5 text-sm">
+                      <dl className="mt-6 space-y-3 border-t border-[#F3EBDD]/12 pt-5 text-sm">
                         <div className="flex justify-between gap-4">
-                          <dt className="text-[#EFEADF]/70">Domestic Wholesale MOQ</dt>
-                          <dd className="font-medium text-[#D4AF6A] tabular-nums">10 kg / SKU</dd>
+                          <dt className="text-[#E9E2D3]/70">Domestic Wholesale MOQ</dt>
+                          <dd className="font-medium text-[#D6BD83] tabular-nums">10 kg / SKU</dd>
                         </div>
                         <div className="flex justify-between gap-4">
-                          <dt className="text-[#EFEADF]/70">Export Air / Sea Freight</dt>
-                          <dd className="font-medium text-[#D4AF6A] tabular-nums">50 kg – FCL</dd>
+                          <dt className="text-[#E9E2D3]/70">Export Air / Sea Freight</dt>
+                          <dd className="font-medium text-[#D6BD83] tabular-nums">50 kg – FCL</dd>
                         </div>
                         <div className="flex justify-between gap-4">
-                          <dt className="text-[#EFEADF]/70">Compliance Stack</dt>
-                          <dd className="font-medium text-[#F7F4EC]">FSSAI · Spices Board · COA</dd>
+                          <dt className="text-[#E9E2D3]/70">Documentation</dt>
+                          <dd className="font-medium text-[#F3EBDD]">Confirmed per enquiry</dd>
                         </div>
                       </dl>
                     </div>
@@ -237,7 +321,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={() => navigateTo('wholesale')}
-                        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md bg-[#D4AF6A] px-5 py-2.5 text-sm font-semibold text-[#132A1E] transition-colors hover:bg-[#E5C88B] cursor-pointer"
+                        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md bg-[#D6BD83] px-5 py-2.5 text-sm font-semibold text-[#173C2B] transition-colors hover:bg-[#E5D19D] cursor-pointer"
                       >
                         <span>Explore Wholesale &amp; Export</span>
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -247,9 +331,9 @@ export default function App() {
                         href={directWhatsAppHref}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md border border-[#D4AF6A]/45 px-5 py-2.5 text-sm font-medium text-[#F7F4EC] transition-colors hover:border-[#D4AF6A] hover:bg-[#1B3B2B]"
+                        className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md border border-[#D6BD83]/45 px-5 py-2.5 text-sm font-medium text-[#F3EBDD] transition-colors hover:border-[#D6BD83] hover:bg-[#244B35]"
                       >
-                        <MessageCircle className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
+                        <MessageCircle className="h-4 w-4 text-[#D6BD83]" aria-hidden="true" />
                         <span>Direct WhatsApp Inquiry</span>
                       </a>
                     </div>
@@ -275,6 +359,7 @@ export default function App() {
       <Footer onNavigate={navigateTo} />
 
       <CartDrawer
+        products={catalogProducts}
         isOpen={cartOpen}
         items={cartItems}
         onClose={() => setCartOpen(false)}
