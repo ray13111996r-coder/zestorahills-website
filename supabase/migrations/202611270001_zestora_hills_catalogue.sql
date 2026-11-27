@@ -8,7 +8,13 @@ begin;
 update public.products set name='Black Pepper', category='Whole Spices' where lower(name) in ('whole black pepper','black pepper');
 update public.products set name='Green Cardamom', category='Whole Spices' where lower(name)='green cardamom';
 update public.products set category='Whole Spices' where lower(name) in ('cinnamon','star anise','dried ginger','nutmeg','cloves','bay leaf','dried bay leaf');
+update public.products set name='Whole Roasted Coffee Beans', category='Estate Coffee' where lower(name) in ('roasted coffee beans','whole roasted coffee beans');
 update public.products set active=false where lower(name)='dried rosemary';
+
+-- Whole roasted beans are sold only in the agreed 500g format; retain historic prices but disable old sizes.
+update public.product_variants set is_active=false
+where product_id=(select id from public.products where name='Whole Roasted Coffee Beans' limit 1)
+  and pack_size in ('100g','200g');
 
 -- Add the full current collection if a product name is not already present.
 insert into public.products (name, category, active)
