@@ -277,7 +277,7 @@ const coffeePack = { '500g': { size: '500g' as const, priceInr: 0, sku: 'ZH-COF-
 const coffeeProducts: Product[] = [
   {
     ...coffeeBase, id: 'espresso-coffee-blend', supabaseId: 11, slug: 'espresso-coffee-blend',
-    name: 'Espresso Coffee Blend', category: 'Estate Coffee',
+    name: 'Espresso Coffee – Arabica & Robusta Blend', category: 'Estate Coffee',
     botanicalName: 'Arabica & Robusta blend', grade: 'Medium-Dark Roast',
     shortNote: 'A balanced Arabica and Robusta blend developed for espresso extraction.',
     description: 'A medium-dark roasted blend of Arabica and Robusta coffee, prepared for espresso-style brewing.',
@@ -288,7 +288,7 @@ const coffeeProducts: Product[] = [
   },
   {
     ...coffeeBase, id: 'south-indian-filter-coffee', supabaseId: 12, slug: 'south-indian-filter-coffee',
-    name: 'South Indian Filter Coffee', category: 'Estate Coffee',
+    name: 'South Indian Filter Coffee – Arabica & Robusta Blend', category: 'Estate Coffee',
     botanicalName: 'Arabica & Robusta blend', grade: 'Medium-Dark Roast',
     shortNote: 'A comforting Arabica and Robusta blend for traditional South Indian filter brewing.',
     description: 'A medium-dark roasted Arabica and Robusta blend intended for traditional South Indian filter coffee preparation.',
