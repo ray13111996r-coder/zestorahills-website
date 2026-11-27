@@ -296,9 +296,7 @@ export default function App() {
                         Bulk supply &amp; export readiness for global buyers.
                       </h2>
                       <p className="mt-4 text-sm leading-relaxed text-[#EFEADF]/80">
-                        Available in 5kg nitrogen-flushed foil pouches, 25kg multi-wall export
-                        sacks, and private-label retail tins—backed by FSSAI, Spices Board (CRES),
-                        IEC, and NABL analytical reports.
+                        Discuss your retail, wholesale or export requirements with our team. Product availability, packaging, applicable licences and destination-specific documentation will be confirmed for each enquiry.
                       </p>
 
                       <dl className="mt-6 space-y-3 border-t border-[#F7F4EC]/12 pt-5 text-sm">
@@ -311,8 +309,8 @@ export default function App() {
                           <dd className="font-medium text-[#D4AF6A] tabular-nums">50 kg – FCL</dd>
                         </div>
                         <div className="flex justify-between gap-4">
-                          <dt className="text-[#EFEADF]/70">Compliance Stack</dt>
-                          <dd className="font-medium text-[#F7F4EC]">FSSAI · Spices Board · COA</dd>
+                          <dt className="text-[#EFEADF]/70">Documentation</dt>
+                          <dd className="font-medium text-[#F7F4EC]">Confirmed per enquiry</dd>
                         </div>
                       </dl>
                     </div>
