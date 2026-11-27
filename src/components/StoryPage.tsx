@@ -44,9 +44,7 @@ export function StoryPage({ onShopRetail, onBulkInquiry }: StoryPageProps) {
               </h1>
 
               <p className="mt-4 max-w-[60ch] text-base leading-relaxed text-[#EFEADF]/88">
-                Every pod, peppercorn, quill, and coffee bean in a Zestora Hills pack begins in the
-                mist-cooled ridges of the Western Ghats—sourced directly from partner estates so
-                aroma never fades in auction warehouses.
+                Our collection brings together whole spices, roasted coffee and botanical infusions inspired by the mist-cooled landscapes and rich growing traditions of the Western Ghats.
               </p>
             </div>
           </div>
@@ -181,7 +179,7 @@ export function StoryPage({ onShopRetail, onBulkInquiry }: StoryPageProps) {
                 Bring the Western Ghats harvest to your kitchen or trade catalog.
               </h3>
               <p className="mt-3 text-sm text-[#EFEADF]/80">
-                Available in 100g and 200g aroma-lock retail pouches or 5kg–25kg wholesale and
+                From carefully sized retail pouches to tailored wholesale and
                 export consignments.
               </p>
             </div>
