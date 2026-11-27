@@ -9,7 +9,7 @@ import {
   Trash2,
   X,
 } from 'lucide-react';
-import { BRAND_CONTACT, PRODUCTS } from '../data/products';
+import { BRAND_CONTACT } from '../data/products';
 import { CartItem, PackSize, Product } from '../types';
 import { ProductImage } from './ProductImage';
 import { isSupabaseConfigured, supabase } from '../supabase';
@@ -131,6 +131,14 @@ export function CartDrawer({
 
     if (resolvedItems.length === 0) {
       setFormError('Your shopping bag is empty or contains unavailable items.');
+      return;
+    }
+
+    if (resolvedItems.some((entry) => {
+      const stock = entry.product.packs[entry.packSize]?.stockQuantity;
+      return stock !== undefined && stock < entry.quantity;
+    })) {
+      setFormError('One or more items no longer have enough stock. Please update your bag.');
       return;
     }
 
