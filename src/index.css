@@ -64,3 +64,16 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Mobile usability refinements */
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { min-width: 320px; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+}
+
+@media (max-width: 639px) {
+  #retail-catalog { scroll-margin-top: 72px; }
+  input, select, textarea { max-width: 100%; }
+}
