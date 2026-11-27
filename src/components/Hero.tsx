@@ -11,7 +11,7 @@ const PROVENANCE_METRICS = [
   { value: '1,200m+', label: 'Western Ghats Elevation' },
   { value: '14 Products', label: 'Spices · Coffee · Infusions' },
   { value: '50g – 500g', label: 'Curated Retail Packs' },
-  { value: 'FSSAI · CRES', label: 'Export & Bulk Trade Ready' },
+  { value: 'Retail & Trade', label: 'Domestic and bulk enquiries' },
 ];
 
 export function Hero({ onShopRetail, onBulkInquiry }: HeroProps) {
