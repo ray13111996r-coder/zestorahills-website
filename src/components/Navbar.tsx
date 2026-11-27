@@ -38,7 +38,7 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
           <span className="block h-[60px] w-[86px] overflow-hidden">
             <img
               src={BRAND_LOGO}
-              alt="Zestora Hills — Single-Origin Spices"
+              alt="Zestora Hills original brand logo"
               className="h-full w-full object-cover object-center scale-[1.54] mix-blend-multiply"
             />
           </span>
