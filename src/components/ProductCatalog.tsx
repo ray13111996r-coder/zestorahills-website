@@ -15,8 +15,8 @@ type SortOption = 'featured' | 'price-asc' | 'price-desc';
 const CATEGORY_TABS: { value: CategoryFilter; label: string }[] = [
   { value: 'All', label: 'All Harvests' },
   { value: 'Whole Spices', label: 'Whole Spices' },
-  { value: 'Aromatics & Herbs', label: 'Aromatics & Herbs' },
-  { value: 'Estate Coffee', label: 'Estate Coffee' },
+  { value: 'Estate Coffee', label: 'Coffee' },
+  { value: 'Infused Teas', label: 'Infused Teas' },
 ];
 
 export function ProductCatalog({
@@ -28,7 +28,7 @@ export function ProductCatalog({
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<SortOption>('featured');
   const [selectedPacks, setSelectedPacks] = useState<Record<string, PackSize>>(() =>
-    Object.fromEntries(products.map((p) => [p.id, '100g']))
+    Object.fromEntries(products.map((p) => [p.id, Object.keys(p.packs)[0] as PackSize]))
   );
   const [recentlyAdded, setRecentlyAdded] = useState<Record<string, boolean>>({});
 
@@ -37,7 +37,7 @@ export function ProductCatalog({
   };
 
   const handleAdd = (product: Product) => {
-    const pack = selectedPacks[product.id] ?? '100g';
+    const pack = selectedPacks[product.id] ?? (Object.keys(product.packs)[0] as PackSize);
     onAddToCart(product, pack);
     setRecentlyAdded((prev) => ({ ...prev, [product.id]: true }));
     window.setTimeout(() => {
@@ -61,15 +61,15 @@ export function ProductCatalog({
     if (sortBy === 'price-asc') {
       return [...list].sort(
         (a, b) =>
-          a.packs[selectedPacks[a.id] ?? '100g'].priceInr -
-          b.packs[selectedPacks[b.id] ?? '100g'].priceInr
+          (a.packs[selectedPacks[a.id] ?? (Object.keys(a.packs)[0] as PackSize)]?.priceInr ?? Number.MAX_SAFE_INTEGER) -
+          (b.packs[selectedPacks[b.id] ?? (Object.keys(b.packs)[0] as PackSize)]?.priceInr ?? Number.MAX_SAFE_INTEGER)
       );
     }
     if (sortBy === 'price-desc') {
       return [...list].sort(
         (a, b) =>
-          b.packs[selectedPacks[b.id] ?? '100g'].priceInr -
-          a.packs[selectedPacks[a.id] ?? '100g'].priceInr
+          (b.packs[selectedPacks[b.id] ?? (Object.keys(b.packs)[0] as PackSize)]?.priceInr ?? 0) -
+          (a.packs[selectedPacks[a.id] ?? (Object.keys(a.packs)[0] as PackSize)]?.priceInr ?? 0)
       );
     }
     return list;
@@ -87,7 +87,7 @@ export function ProductCatalog({
             Single-Origin Western Ghats Collection
           </h2>
           <p className="mt-2.5 text-sm sm:text-base text-[#4A5D52]">
-            Packed whole in aroma-lock pouches in 100g and 200g formats. Free Pan-India express
+            A considered collection of whole spices, roasted coffee and botanical infusions in carefully chosen pack sizes. Free Pan-India express
             shipping on retail orders above ₹1,499.
           </p>
         </div>
@@ -151,7 +151,7 @@ export function ProductCatalog({
         </div>
 
         <p className="text-xs text-[#63756A] tabular-nums">
-          Showing {filteredProducts.length} of {products.length} single-origin harvests
+          Showing {filteredProducts.length} of {products.length} Western Ghats selections
         </p>
       </div>
 
@@ -176,8 +176,9 @@ export function ProductCatalog({
       ) : (
         <div className="mt-8 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {filteredProducts.map((product) => {
-            const currentPack = selectedPacks[product.id] ?? '100g';
+            const currentPack = selectedPacks[product.id] ?? (Object.keys(product.packs)[0] as PackSize);
             const variant = product.packs[currentPack];
+            const hasPrice = Boolean(variant && variant.priceInr > 0);
             const isAdded = Boolean(recentlyAdded[product.id]);
 
             return (
@@ -224,7 +225,7 @@ export function ProductCatalog({
                       {product.name}
                     </button>
                     <span className="text-base font-semibold text-[#132A1E] tabular-nums whitespace-nowrap shrink-0">
-                      ₹{variant.priceInr.toLocaleString('en-IN')}
+                      {hasPrice ? `₹${variant!.priceInr.toLocaleString('en-IN')}` : 'Price to be confirmed'}
                     </span>
                   </div>
 
@@ -241,7 +242,7 @@ export function ProductCatalog({
                         aria-label={`Select pack size for ${product.name}`}
                         className="inline-flex rounded-md bg-[#EFEADF] p-1"
                       >
-                        {(['100g', '200g'] as PackSize[]).map((size) => {
+                        {(Object.keys(product.packs) as PackSize[]).map((size) => {
                           const active = currentPack === size;
                           return (
                             <button
@@ -273,6 +274,7 @@ export function ProductCatalog({
                     <button
                       type="button"
                       onClick={() => handleAdd(product)}
+                      disabled={!hasPrice}
                       className={`mt-3 inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors duration-150 whitespace-nowrap cursor-pointer ${
                         isAdded
                           ? 'bg-[#274D3A] text-[#F7F4EC]'
@@ -284,11 +286,13 @@ export function ProductCatalog({
                           <Check className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
                           <span>Added {currentPack} to Bag</span>
                         </>
+                      ) : !hasPrice ? (
+                        <span>Price to be confirmed</span>
                       ) : (
                         <>
                           <Plus className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
                           <span className="tabular-nums">
-                            Add to Bag · ₹{variant.priceInr.toLocaleString('en-IN')}
+                            Add to Bag · ₹{variant!.priceInr.toLocaleString('en-IN')}
                           </span>
                         </>
                       )}
