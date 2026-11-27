@@ -48,7 +48,7 @@ function mapDatabaseProduct(row: any): Product {
       size,
       priceInr: Number(variant.price) || 0,
       sku: String(variant.sku ?? ''),
-      stockQuantity: Number.isFinite(Number(variant.stock_quantity)) ? Number(variant.stock_quantity) : undefined,
+      stockQuantity: variant.stock_quantity == null ? undefined : Number(variant.stock_quantity),
       isActive: Boolean(variant.is_active),
     };
   }
