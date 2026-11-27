@@ -12,7 +12,7 @@ import {
 import { BRAND_CONTACT, PRODUCTS } from '../data/products';
 import { CartItem, PackSize } from '../types';
 import { ProductImage } from './ProductImage';
-import { supabase } from '../supabase';
+import { isSupabaseConfigured, supabase } from '../supabase';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -129,6 +129,11 @@ export function CartDrawer({
 
     if (resolvedItems.length === 0) {
       setFormError('Your shopping bag is empty.');
+      return;
+    }
+
+    if (!isSupabaseConfigured || !supabase) {
+      setFormError('Online ordering is being configured. Please contact Zestora Hills on WhatsApp to place your order.');
       return;
     }
 
