@@ -135,12 +135,7 @@ export default function App() {
         .eq('active', true);
       if (error || !data || cancelled) return;
       const databaseProducts = data.map((row: any) => mapDatabaseProduct(row));
-      const databaseIds = new Set(databaseProducts.map((product) => product.id));
-      const matchedStatic = PRODUCTS
-        .filter((product) => databaseProducts.some((dbProduct) => dbProduct.id === product.id))
-        .map((product) => databaseProducts.find((dbProduct) => dbProduct.id === product.id)!);
-      const unmatchedDatabase = databaseProducts.filter((product) => !databaseIds.has(product.id));
-      const combined = [...matchedStatic, ...unmatchedDatabase];
+      const combined = databaseProducts;
       if (combined.length > 0 && !cancelled) setCatalogProducts(combined);
     };
     void loadCatalog();
