@@ -271,7 +271,6 @@ export default function App() {
           addToCart(product, packSize, qty);
           setCartOpen(true);
         }}
-        onRequestBulk={() => navigateTo('contact')}
       />
     </div>
   );
