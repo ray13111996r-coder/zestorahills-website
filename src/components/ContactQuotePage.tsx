@@ -222,7 +222,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
             </div>
           </div>
 
-          {/* Right Column: Interactive Contact & Bulk Quote Form */}
+          {/* Right Column: Customer Enquiry Form */}
           <div className="rounded-lg border border-[#173C2B]/12 bg-[#F8F5EC] p-6 sm:p-9 lg:col-span-7">
             {submittedRef ? (
               <div className="py-6">
