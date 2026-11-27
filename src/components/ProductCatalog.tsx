@@ -81,10 +81,10 @@ export function ProductCatalog({
       <div className="flex flex-col gap-6 border-b border-[#132A1E]/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-2xl">
           <p className="text-xs font-medium tracking-wide text-[#966D28]">
-            Retail Apothecary · Direct Estate Packs
+            SPICES · COFFEE · INFUSED TEAS
           </p>
           <h2 className="mt-2 font-serif text-3xl sm:text-4xl font-medium tracking-tight text-[#132A1E] text-balance">
-            Single-Origin Western Ghats Collection
+            The Western Ghats Collection
           </h2>
           <p className="mt-2.5 text-sm sm:text-base text-[#4A5D52]">
             A considered collection of whole spices, roasted coffee and botanical infusions in carefully chosen pack sizes. Free Pan-India express
