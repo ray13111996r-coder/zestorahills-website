@@ -37,11 +37,15 @@ export function ProductDetailModal({
 
   if (!product) return null;
 
-  const variant = product.packs[packSize];
+  const availablePacks = Object.keys(product.packs) as PackSize[];
+  const safePack = product.packs[packSize] ? packSize : availablePacks[0];
+  const variant = product.packs[safePack]!;
+  const hasPrice = variant.priceInr > 0;
   const lineTotal = variant.priceInr * quantity;
 
   const handleConfirmAdd = () => {
-    onAddToCart(product, packSize, quantity);
+    if (!hasPrice) return;
+    onAddToCart(product, safePack, quantity);
     onClose();
   };
 
@@ -124,7 +128,7 @@ export function ProductDetailModal({
               <div>
                 <p className="text-xs font-medium text-[#63756A]">Pack Size</p>
                 <div className="mt-1.5 inline-flex rounded-md bg-[#EFEADF] p-1">
-                  {(['100g', '200g'] as PackSize[]).map((size) => {
+                  {availablePacks.map((size) => {
                     const active = packSize === size;
                     return (
                       <button
@@ -137,7 +141,7 @@ export function ProductDetailModal({
                             : 'text-[#4A5D52] hover:text-[#132A1E]'
                         }`}
                       >
-                        {size} — ₹{product.packs[size].priceInr.toLocaleString('en-IN')}
+                        {size}{product.packs[size]!.priceInr > 0 ? ` — ₹${product.packs[size]!.priceInr.toLocaleString('en-IN')}` : ' — Price pending'}
                       </button>
                     );
                   })}
@@ -173,10 +177,11 @@ export function ProductDetailModal({
             <button
               type="button"
               onClick={handleConfirmAdd}
+              disabled={!hasPrice}
               className="mt-6 inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-md bg-[#132A1E] px-6 py-3 text-sm font-semibold text-[#F7F4EC] transition-colors hover:bg-[#1B3B2B] cursor-pointer"
             >
               <span className="tabular-nums">
-                Add to Bag · ₹{lineTotal.toLocaleString('en-IN')}
+                {hasPrice ? `Add to Bag · ₹${lineTotal.toLocaleString('en-IN')}` : 'Price to be confirmed tomorrow'}
               </span>
             </button>
 
