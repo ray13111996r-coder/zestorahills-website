@@ -12,7 +12,7 @@ export interface PackVariant {
 
 export interface Product {
   id: string;
-  supabaseId: number;
+  supabaseId: string | null;
   slug: string;
   name: string;
   botanicalName: string;
