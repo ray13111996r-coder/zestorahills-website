@@ -10,10 +10,11 @@ begin
     create policy "Public can view active products" on public.products
       for select to anon, authenticated using (active = true);
   end if;
-  if not exists (select 1 from pg_policies where schemaname='public' and tablename='product_variants' and policyname='Public can view active variants') then
-    create policy "Public can view active variants" on public.product_variants
-      for select to anon, authenticated using (is_active = true);
-  end if;
+  drop policy if exists "Public can view active variants" on public.product_variants;
+  create policy "Public can view active variants" on public.product_variants
+    for select to anon, authenticated using (
+      exists (select 1 from public.products p where p.id = product_id and p.active = true)
+    );
 end $$;
 
 create table if not exists public.quote_requests (
