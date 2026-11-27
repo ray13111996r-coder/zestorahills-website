@@ -26,14 +26,13 @@ export function Footer({ onNavigate }: FooterProps) {
               <span className="block h-[96px] w-[138px] overflow-hidden">
                 <img
                   src={BRAND_LOGO}
-                  alt="Zestora Hills — Single-Origin Spices"
+                  alt="Zestora Hills original brand logo"
                   className="h-full w-full object-cover object-center scale-[1.54] mix-blend-multiply"
                 />
               </span>
             </button>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#EFEADF]/75">
-              Single-origin Western Ghats spices and shade-grown estate coffee. Sourced directly
-              from partner growers across Idukki, Wayanad, and Chikmagalur.
+              A considered collection of Western Ghats spices, roasted coffee and botanical infusions. Rooted in nature. Crafted with care.
             </p>
             <p className="mt-4 text-xs text-[#D4AF6A]">
               {BRAND_CONTACT.domain} · FSSAI &amp; Spices Board Export Ready
@@ -116,7 +115,7 @@ export function Footer({ onNavigate }: FooterProps) {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-[#F7F4EC]/12 pt-6 text-xs text-[#EFEADF]/60 sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} Zestora Hills ({BRAND_CONTACT.domain}). All rights reserved.</p>
-          <p>Single-Origin Western Ghats Spices &amp; Estate Coffee</p>
+          <p>Rooted in Nature. Crafted with Care.</p>
         </div>
       </div>
     </footer>
