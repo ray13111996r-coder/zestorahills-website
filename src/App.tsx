@@ -43,12 +43,13 @@ function mapDatabaseProduct(row: any): Product {
   const activePacks: Partial<Record<PackSize, { size: PackSize; priceInr: number; sku: string; stockQuantity?: number }>> = {};
   for (const variant of variants) {
     const size = String(variant.pack_size) as PackSize;
-    if (!SUPPORTED_PACK_SIZES.includes(size) || !variant.is_active) continue;
+    if (!SUPPORTED_PACK_SIZES.includes(size)) continue;
     activePacks[size] = {
       size,
       priceInr: Number(variant.price) || 0,
       sku: String(variant.sku ?? ''),
       stockQuantity: Number.isFinite(Number(variant.stock_quantity)) ? Number(variant.stock_quantity) : undefined,
+      isActive: Boolean(variant.is_active),
     };
   }
   const category = ['Whole Spices', 'Estate Coffee', 'Infused Teas', 'Aromatics & Herbs'].includes(row.category)
