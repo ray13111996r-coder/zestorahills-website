@@ -199,12 +199,8 @@ export function ProductCatalog({
                     src={product.image}
                     alt={product.imageAlt}
                     title={product.name}
-                    className="aspect-[4/3] w-full"
-                    imgClassName={
-                      product.imageClassName
-                        ? `${product.imageClassName} group-hover:scale-[2.42]`
-                        : 'group-hover:scale-[1.03]'
-                    }
+                    className="flex aspect-[4/3] w-full items-center justify-center"
+                    imgClassName="!object-contain p-5 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                   />
                 </button>
 
