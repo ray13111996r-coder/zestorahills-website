@@ -26,7 +26,7 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#132A1E]/10 bg-[#F7F4EC]/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b border-[#173C2B]/10 bg-[#F3EBDD]/95 backdrop-blur-sm">
       <div className="mx-auto flex h-[74px] max-w-[1280px] items-center justify-between gap-8 px-5 sm:px-8">
         {/* Zone 1: Uploaded Zestora Hills Brand Logo */}
         <button
@@ -55,14 +55,14 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
                 onClick={() => handleNavClick(item.id)}
                 className={`relative py-1 text-sm font-medium transition-colors duration-150 whitespace-nowrap shrink-0 cursor-pointer ${
                   isActive
-                    ? 'text-[#132A1E]'
-                    : 'text-[#4A5D52] hover:text-[#132A1E]'
+                    ? 'text-[#173C2B]'
+                    : 'text-[#52665A] hover:text-[#173C2B]'
                 }`}
               >
                 {item.label}
                 <span
                   aria-hidden="true"
-                  className={`absolute inset-x-0 -bottom-0.5 h-[1.5px] bg-[#B88A3E] transition-opacity duration-150 ${
+                  className={`absolute inset-x-0 -bottom-0.5 h-[1.5px] bg-[#B69A61] transition-opacity duration-150 ${
                     isActive ? 'opacity-100' : 'opacity-0'
                   }`}
                 />
@@ -77,9 +77,9 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
             type="button"
             onClick={onOpenCart}
             aria-label={`Open shopping bag, ${cartCount} items`}
-            className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-[#132A1E] px-4 py-2 text-sm font-medium text-[#F7F4EC] transition-colors duration-150 hover:bg-[#1B3B2B] whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex min-h-[40px] items-center gap-2 rounded-md bg-[#173C2B] px-4 py-2 text-sm font-medium text-[#F3EBDD] transition-colors duration-150 hover:bg-[#244B35] whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <ShoppingBag className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
+            <ShoppingBag className="h-4 w-4 text-[#D6BD83]" aria-hidden="true" />
             <span className="tabular-nums">Bag ({cartCount})</span>
           </button>
 
@@ -88,7 +88,7 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobileMenuOpen}
-            className="inline-flex md:hidden min-h-[44px] min-w-[44px] items-center justify-center rounded-md border border-[#132A1E]/15 text-[#132A1E] transition-colors hover:bg-[#EFEADF] cursor-pointer"
+            className="inline-flex md:hidden min-h-[44px] min-w-[44px] items-center justify-center rounded-md border border-[#173C2B]/15 text-[#173C2B] transition-colors hover:bg-[#E9E2D3] cursor-pointer"
           >
             {mobileMenuOpen ? (
               <X className="h-5 w-5" aria-hidden="true" />
@@ -101,7 +101,7 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
 
       {/* Responsive mobile drawer */}
       {mobileMenuOpen && (
-        <div className="border-t border-[#132A1E]/10 bg-[#F7F4EC] px-5 py-4 md:hidden">
+        <div className="border-t border-[#173C2B]/10 bg-[#F3EBDD] px-5 py-4 md:hidden">
           <nav aria-label="Mobile navigation" className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => {
               const isActive = activePage === item.id;
@@ -112,13 +112,13 @@ export function Navbar({ activePage, onNavigate, cartCount, onOpenCart }: Navbar
                   onClick={() => handleNavClick(item.id)}
                   className={`flex min-h-[44px] items-center justify-between rounded-md px-3 text-left text-base font-medium transition-colors cursor-pointer ${
                     isActive
-                      ? 'bg-[#EFEADF] text-[#132A1E]'
-                      : 'text-[#4A5D52] hover:bg-[#EFEADF]/60 hover:text-[#132A1E]'
+                      ? 'bg-[#E9E2D3] text-[#173C2B]'
+                      : 'text-[#52665A] hover:bg-[#E9E2D3]/60 hover:text-[#173C2B]'
                   }`}
                 >
                   <span>{item.label}</span>
                   {isActive && (
-                    <span className="text-xs text-[#966D28]">Current</span>
+                    <span className="text-xs text-[#987B43]">Current</span>
                   )}
                 </button>
               );
