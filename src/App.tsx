@@ -40,7 +40,7 @@ function mapDatabaseProduct(row: any): Product {
       product.id === aliases[normalized]
   );
   const variants = Array.isArray(row.product_variants) ? row.product_variants : [];
-  const activePacks: Partial<Record<PackSize, { size: PackSize; priceInr: number; sku: string }>> = {};
+  const activePacks: Partial<Record<PackSize, { size: PackSize; priceInr: number; sku: string; stockQuantity?: number }>> = {};
   for (const variant of variants) {
     const size = String(variant.pack_size) as PackSize;
     if (!SUPPORTED_PACK_SIZES.includes(size) || !variant.is_active) continue;
@@ -128,10 +128,11 @@ export default function App() {
 
 
   useEffect(() => {
-    if (!supabase) return;
+    const client = supabase;
+    if (!client) return;
     let cancelled = false;
     const loadCatalog = async () => {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from('products')
         .select('id,name,category,active,product_variants(pack_size,price,sku,stock_quantity,is_active)')
         .eq('active', true);
