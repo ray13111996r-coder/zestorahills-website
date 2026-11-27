@@ -35,7 +35,7 @@ export function Footer({ onNavigate }: FooterProps) {
               A considered collection of Western Ghats spices, roasted coffee and botanical infusions. Rooted in nature. Crafted with care.
             </p>
             <p className="mt-4 text-xs text-[#D6BD83]">
-              {BRAND_CONTACT.domain} · FSSAI &amp; Spices Board Export Ready
+              {BRAND_CONTACT.domain} · Western Ghats, India
             </p>
           </div>
 
@@ -52,15 +52,7 @@ export function Footer({ onNavigate }: FooterProps) {
                   Retail Harvest Catalog
                 </button>
               </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('wholesale')}
-                  className="text-[#E9E2D3]/80 transition-colors hover:text-[#F3EBDD] cursor-pointer"
-                >
-                  Wholesale &amp; Export Trade
-                </button>
-              </li>
+
               <li>
                 <button
                   type="button"
@@ -76,7 +68,7 @@ export function Footer({ onNavigate }: FooterProps) {
                   onClick={() => onNavigate('contact')}
                   className="text-[#E9E2D3]/80 transition-colors hover:text-[#F3EBDD] cursor-pointer"
                 >
-                  Contact &amp; Bulk Quote
+                  Contact Us
                 </button>
               </li>
             </ul>
@@ -84,7 +76,7 @@ export function Footer({ onNavigate }: FooterProps) {
 
           {/* Trade Desk */}
           <div className="md:col-span-4">
-            <p className="text-xs font-medium tracking-wide text-[#D6BD83]">Sourcing &amp; Trade Desk</p>
+            <p className="text-xs font-medium tracking-wide text-[#D6BD83]">Contact &amp; Support</p>
             <p className="mt-4 text-sm text-[#E9E2D3]/80">{BRAND_CONTACT.address}</p>
             <p className="mt-2 text-sm text-[#E9E2D3]/80">
               <a
