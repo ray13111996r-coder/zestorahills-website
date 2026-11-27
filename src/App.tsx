@@ -15,10 +15,73 @@ import { ProductDetailModal } from './components/ProductDetailModal';
 import { ProductImage } from './components/ProductImage';
 import { StoryPage } from './components/StoryPage';
 import { WholesalePage } from './components/WholesalePage';
-import { BRAND_CONTACT, PRODUCTS, STORY_IMAGE } from './data/products';
+import { BRAND_CONTACT, HERO_IMAGE, PRODUCTS, STORY_IMAGE } from './data/products';
+import { supabase } from './supabase';
 import { CartItem, PackSize, PageRoute, Product, QuotePrefill } from './types';
 
 const CART_STORAGE_KEY = 'zestora_hills_cart_v1';
+
+
+const SUPPORTED_PACK_SIZES: PackSize[] = ['50g', '100g', '200g', '500g'];
+
+function normalizeProductName(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function mapDatabaseProduct(row: any): Product {
+  const aliases: Record<string, string> = {
+    blackpepper: 'whole-black-pepper',
+    bayleaf: 'dried-bay-leaf',
+  };
+  const normalized = normalizeProductName(String(row.name ?? ''));
+  const staticProduct = PRODUCTS.find(
+    (product) =>
+      normalizeProductName(product.name) === normalized ||
+      product.id === aliases[normalized]
+  );
+  const variants = Array.isArray(row.product_variants) ? row.product_variants : [];
+  const activePacks: Partial<Record<PackSize, { size: PackSize; priceInr: number; sku: string }>> = {};
+  for (const variant of variants) {
+    const size = String(variant.pack_size) as PackSize;
+    if (!SUPPORTED_PACK_SIZES.includes(size) || !variant.is_active) continue;
+    activePacks[size] = {
+      size,
+      priceInr: Number(variant.price) || 0,
+      sku: String(variant.sku ?? ''),
+    };
+  }
+  const category = ['Whole Spices', 'Estate Coffee', 'Infused Teas', 'Aromatics & Herbs'].includes(row.category)
+    ? row.category
+    : 'Whole Spices';
+  const base: Product = staticProduct ?? {
+    id: `db-${row.id}`,
+    supabaseId: String(row.id),
+    slug: normalizeProductName(String(row.name ?? 'product')),
+    name: String(row.name ?? 'Zestora Hills Product'),
+    botanicalName: '',
+    category,
+    origin: 'Western Ghats',
+    elevation: '',
+    grade: 'Carefully selected',
+    harvestSeason: '',
+    shortNote: 'Carefully selected by Zestora Hills.',
+    description: 'A carefully selected product from the Zestora Hills collection.',
+    tastingNotes: [],
+    culinaryUses: 'Explore serving and preparation ideas.',
+    specHighlight: 'Zestora Hills Collection',
+    image: HERO_IMAGE,
+    imageAlt: String(row.name ?? 'Zestora Hills product'),
+    packs: {},
+  };
+  return {
+    ...base,
+    id: staticProduct?.id ?? base.id,
+    supabaseId: String(row.id),
+    name: String(row.name ?? base.name),
+    category,
+    packs: Object.keys(activePacks).length > 0 ? activePacks : base.packs,
+  };
+}
 
 function readInitialRoute(): PageRoute {
   const hash = window.location.hash.replace('#', '').toLowerCase();
@@ -52,6 +115,7 @@ function readInitialCart(): CartItem[] {
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageRoute>(readInitialRoute);
+  const [catalogProducts, setCatalogProducts] = useState<Product[]>(PRODUCTS);
   const [cartItems, setCartItems] = useState<CartItem[]>(readInitialCart);
   const [cartOpen, setCartOpen] = useState(false);
   const [inspectedProduct, setInspectedProduct] = useState<{
@@ -59,6 +123,29 @@ export default function App() {
     pack: PackSize;
   } | null>(null);
   const [quotePrefill, setQuotePrefill] = useState<QuotePrefill | null>(null);
+
+
+  useEffect(() => {
+    if (!supabase) return;
+    let cancelled = false;
+    const loadCatalog = async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('id,name,category,active,product_variants(pack_size,price,sku,stock_quantity,is_active)')
+        .eq('active', true);
+      if (error || !data || cancelled) return;
+      const databaseProducts = data.map((row: any) => mapDatabaseProduct(row));
+      const databaseIds = new Set(databaseProducts.map((product) => product.id));
+      const matchedStatic = PRODUCTS
+        .filter((product) => databaseProducts.some((dbProduct) => dbProduct.id === product.id))
+        .map((product) => databaseProducts.find((dbProduct) => dbProduct.id === product.id)!);
+      const unmatchedDatabase = databaseProducts.filter((product) => !databaseIds.has(product.id));
+      const combined = [...matchedStatic, ...unmatchedDatabase];
+      if (combined.length > 0 && !cancelled) setCatalogProducts(combined);
+    };
+    void loadCatalog();
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     try {
@@ -160,7 +247,7 @@ export default function App() {
             />
 
             <ProductCatalog
-              products={PRODUCTS}
+              products={catalogProducts}
               onAddToCart={(product, packSize) => addToCart(product, packSize, 1)}
               onInspectProduct={(product, pack) => setInspectedProduct({ product, pack })}
             />
@@ -275,6 +362,7 @@ export default function App() {
       <Footer onNavigate={navigateTo} />
 
       <CartDrawer
+        products={catalogProducts}
         isOpen={cartOpen}
         items={cartItems}
         onClose={() => setCartOpen(false)}
