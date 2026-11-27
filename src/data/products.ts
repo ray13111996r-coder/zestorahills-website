@@ -14,7 +14,7 @@ export const BRAND_LOGO = '/assets/aistudio/ZESTORA_HILLS_LOGO_87d02c2a.jpeg';
 export const HERO_IMAGE = '/src/assets/images/hero_western_ghats_spices_1795192090415.jpg';
 export const STORY_IMAGE = '/src/assets/images/story_western_ghats_estate_1795192095551.jpg';
 
-export const PRODUCTS: Product[] = [
+const LEGACY_PRODUCTS: Product[] = [
   {
     id: 'whole-black-pepper',
     supabaseId: 1,
@@ -257,6 +257,96 @@ export const PRODUCTS: Product[] = [
     },
   },
 ];
+
+// Current retail collection. Existing prices are retained only for unchanged legacy spice packs.
+// Newly introduced pack sizes and products intentionally carry a zero-price placeholder until pricing is confirmed.
+const spiceIds = new Set([
+  'whole-black-pepper', 'green-cardamom', 'cinnamon', 'dried-ginger',
+  'cloves', 'star-anise', 'dried-bay-leaf', 'nutmeg',
+]);
+const legacySpices = LEGACY_PRODUCTS.filter((p) => spiceIds.has(p.id)).map((p) => ({
+  ...p,
+  category: 'Whole Spices' as const,
+  packs: {
+    '50g': { size: '50g' as const, priceInr: 0, sku: `ZH-${p.id.toUpperCase().replaceAll('-', '').slice(0, 6)}-50` },
+    ...p.packs,
+  },
+}));
+const coffeeBase = LEGACY_PRODUCTS.find((p) => p.id === 'roasted-coffee-beans')!;
+const coffeePack = { '500g': { size: '500g' as const, priceInr: 0, sku: 'ZH-COF-500' } };
+const coffeeProducts: Product[] = [
+  {
+    ...coffeeBase, id: 'espresso-coffee-blend', supabaseId: 11, slug: 'espresso-coffee-blend',
+    name: 'Espresso Coffee Blend', category: 'Estate Coffee',
+    botanicalName: 'Arabica & Robusta blend', grade: 'Medium-Dark Roast',
+    shortNote: 'A balanced Arabica and Robusta blend developed for espresso extraction.',
+    description: 'A medium-dark roasted blend of Arabica and Robusta coffee, prepared for espresso-style brewing.',
+    tastingNotes: ['Roasted Cocoa', 'Caramel', 'Full-Bodied Finish'],
+    culinaryUses: 'Designed for espresso machines and milk-based coffee drinks.',
+    specHighlight: 'Arabica & Robusta Blend · Medium-Dark Roast',
+    packs: coffeePack,
+  },
+  {
+    ...coffeeBase, id: 'south-indian-filter-coffee', supabaseId: 12, slug: 'south-indian-filter-coffee',
+    name: 'South Indian Filter Coffee', category: 'Estate Coffee',
+    botanicalName: 'Arabica & Robusta blend', grade: 'Medium-Dark Roast',
+    shortNote: 'A comforting Arabica and Robusta blend for traditional South Indian filter brewing.',
+    description: 'A medium-dark roasted Arabica and Robusta blend intended for traditional South Indian filter coffee preparation.',
+    tastingNotes: ['Deep Roast', 'Chocolate', 'Rounded Body'],
+    culinaryUses: 'Prepared in a traditional South Indian metal filter; serve with hot milk if desired.',
+    specHighlight: 'Arabica & Robusta Blend · Medium-Dark Roast',
+    packs: { '500g': { size: '500g', priceInr: 0, sku: 'ZH-SIF-500' } },
+  },
+  {
+    ...coffeeBase, id: 'whole-roasted-coffee-beans', supabaseId: 13, slug: 'whole-roasted-coffee-beans',
+    name: 'Whole Roasted Coffee Beans', category: 'Estate Coffee',
+    botanicalName: 'Roasted whole coffee beans', grade: 'Whole Bean · 500g',
+    shortNote: 'Whole roasted coffee beans, ready to grind fresh for your preferred brew.',
+    description: 'Whole roasted coffee beans supplied unground so you can grind them fresh for your preferred brewing method.',
+    tastingNotes: ['Fresh Roast Aroma', 'Cocoa', 'Warm Nutty Notes'],
+    culinaryUses: 'Grind to suit espresso, South Indian filter, moka pot or other brewing methods.',
+    specHighlight: 'Whole Roasted Beans · 500g',
+    packs: { '500g': { size: '500g', priceInr: 0, sku: 'ZH-WRB-500' } },
+  },
+];
+const teaBase = LEGACY_PRODUCTS.find((p) => p.id === 'dried-bay-leaf')!;
+const teaProducts: Product[] = [
+  {
+    ...teaBase, id: 'hibiscus-infusion-tea', supabaseId: 14, slug: 'hibiscus-infusion-tea',
+    name: 'Hibiscus Infusion Tea', category: 'Infused Teas',
+    botanicalName: 'Hibiscus sabdariffa', grade: 'Dried Hibiscus Infusion',
+    shortNote: 'A vivid floral infusion with a naturally tart character.',
+    description: 'Dried hibiscus petals for a bright, ruby-coloured herbal infusion. Enjoy hot or chilled.',
+    tastingNotes: ['Floral', 'Tart', 'Cranberry-Like'],
+    culinaryUses: 'Steep in hot water and enjoy plain or with your preferred sweetener.',
+    specHighlight: 'Herbal Infusion · 50g',
+    packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-HIB-50' } },
+  },
+  {
+    ...teaBase, id: 'blue-pea-infusion-tea', supabaseId: 15, slug: 'blue-pea-infusion-tea',
+    name: 'Blue Pea Infusion Tea', category: 'Infused Teas',
+    botanicalName: 'Clitoria ternatea', grade: 'Dried Blue Pea Flowers',
+    shortNote: 'A naturally blue botanical infusion made from dried butterfly pea flowers.',
+    description: 'Dried blue pea flowers that brew into a striking blue herbal infusion, with a colour-changing response to citrus.',
+    tastingNotes: ['Delicate', 'Earthy', 'Mild Floral'],
+    culinaryUses: 'Steep in hot water; add lemon or lime to see the infusion shift in colour.',
+    specHighlight: 'Herbal Infusion · 50g',
+    packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-BPT-50' } },
+  },
+  {
+    ...teaBase, id: 'lemongrass-infusion-tea', supabaseId: 16, slug: 'lemongrass-infusion-tea',
+    name: 'Lemongrass Infusion Tea', category: 'Infused Teas',
+    botanicalName: 'Cymbopogon citratus', grade: 'Dried Lemongrass',
+    shortNote: 'A refreshing herbal infusion with clean citrus notes.',
+    description: 'Dried lemongrass prepared for a light, fragrant herbal infusion.',
+    tastingNotes: ['Lemon Zest', 'Fresh Herb', 'Clean Finish'],
+    culinaryUses: 'Steep in hot water and enjoy as a refreshing caffeine-free infusion.',
+    specHighlight: 'Herbal Infusion · 50g',
+    packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-LEM-50' } },
+  },
+];
+export const PRODUCTS: Product[] = [...legacySpices, ...coffeeProducts, ...teaProducts];
+
 
 export const WHOLESALE_PACKAGING_OPTIONS = [
   {
