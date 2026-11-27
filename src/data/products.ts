@@ -345,7 +345,73 @@ const teaProducts: Product[] = [
     packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-LEM-50' } },
   },
 ];
-export const PRODUCTS: Product[] = [...legacySpices, ...coffeeProducts, ...teaProducts];
+// Real packaging photographs uploaded to public/assets/products.
+// Keep these filenames aligned with the exact files in the repository.
+const PACKAGING_IMAGES: Record<string, { image: string; imageAlt: string }> = {
+  'whole-black-pepper': {
+    image: '/assets/products/Black%20pepper%20package.jpeg',
+    imageAlt: 'Zestora Hills Black Pepper retail packaging',
+  },
+  'green-cardamom': {
+    image: '/assets/products/Green%20cardamom%20package.jpeg',
+    imageAlt: 'Zestora Hills Green Cardamom retail packaging',
+  },
+  cinnamon: {
+    image: '/assets/products/Cinnamon%20package.jpeg',
+    imageAlt: 'Zestora Hills Cinnamon retail packaging',
+  },
+  'dried-ginger': {
+    image: '/assets/products/Dried%20Ginger%20package.jpeg',
+    imageAlt: 'Zestora Hills Dried Ginger retail packaging',
+  },
+  cloves: {
+    image: '/assets/products/Cloves%20Package.jpeg',
+    imageAlt: 'Zestora Hills Cloves retail packaging',
+  },
+  'star-anise': {
+    image: '/assets/products/Star%20anise%20package.jpeg',
+    imageAlt: 'Zestora Hills Star Anise retail packaging',
+  },
+  'dried-bay-leaf': {
+    image: '/assets/products/Bay%20Leaf%20Package.jpeg',
+    imageAlt: 'Zestora Hills Bay Leaf retail packaging',
+  },
+  nutmeg: {
+    image: '/assets/products/Nutmeg%20Package.jpeg',
+    imageAlt: 'Zestora Hills Nutmeg retail packaging',
+  },
+  'espresso-coffee-blend': {
+    image: '/assets/products/Espresso%20Pack%20.jpeg',
+    imageAlt: 'Zestora Hills Espresso Coffee Blend retail packaging',
+  },
+  'south-indian-filter-coffee': {
+    image: '/assets/products/Filter%20Coffee%20Pack.jpeg',
+    imageAlt: 'Zestora Hills South Indian Filter Coffee retail packaging',
+  },
+  'whole-roasted-coffee-beans': {
+    image: '/assets/products/Roasted%20Coffee%20bean%20package.jpeg',
+    imageAlt: 'Zestora Hills Whole Roasted Coffee Beans retail packaging',
+  },
+  'hibiscus-infusion-tea': {
+    image: '/assets/products/Hibiscus%20Tea%20Pack.jpeg',
+    imageAlt: 'Zestora Hills Hibiscus Infusion Tea retail packaging',
+  },
+  'blue-pea-infusion-tea': {
+    image: '/assets/products/Blue%20Pea%20Infusion%20Tea.jpeg',
+    imageAlt: 'Zestora Hills Blue Pea Infusion Tea retail packaging',
+  },
+  'lemongrass-infusion-tea': {
+    image: '/assets/products/lemongrass%20Tea%20pack.jpeg',
+    imageAlt: 'Zestora Hills Lemongrass Infusion Tea retail packaging',
+  },
+};
+
+export const PRODUCTS: Product[] = [...legacySpices, ...coffeeProducts, ...teaProducts].map(
+  (product) => ({
+    ...product,
+    ...(PACKAGING_IMAGES[product.id] ?? {}),
+  }),
+);
 
 
 export const WHOLESALE_PACKAGING_OPTIONS = [
