@@ -10,11 +10,12 @@ import {
   X,
 } from 'lucide-react';
 import { BRAND_CONTACT, PRODUCTS } from '../data/products';
-import { CartItem, PackSize } from '../types';
+import { CartItem, PackSize, Product } from '../types';
 import { ProductImage } from './ProductImage';
 import { isSupabaseConfigured, supabase } from '../supabase';
 
 interface CartDrawerProps {
+  products: Product[];
   isOpen: boolean;
   items: CartItem[];
   onClose: () => void;
@@ -43,6 +44,7 @@ const FREE_SHIPPING_THRESHOLD = 1499;
 const FLAT_SHIPPING_FEE = 95;
 
 export function CartDrawer({
+  products,
   isOpen,
   items,
   onClose,
@@ -84,7 +86,7 @@ export function CartDrawer({
 
   const resolvedItems = items
     .map((item) => {
-      const product = PRODUCTS.find((p) => p.id === item.productId);
+      const product = products.find((p) => p.id === item.productId);
       if (!product) return null;
 
       const variant = product.packs[item.packSize];
@@ -128,7 +130,12 @@ export function CartDrawer({
     }
 
     if (resolvedItems.length === 0) {
-      setFormError('Your shopping bag is empty.');
+      setFormError('Your shopping bag is empty or contains unavailable items.');
+      return;
+    }
+
+    if (resolvedItems.some((entry) => !entry.product.supabaseId)) {
+      setFormError('The product catalogue is still syncing. Please try again shortly or contact us on WhatsApp.');
       return;
     }
 
