@@ -88,6 +88,7 @@ export function CartDrawer({
       if (!product) return null;
 
       const variant = product.packs[item.packSize];
+      if (!variant || variant.priceInr <= 0) return null;
 
       return {
         ...item,
