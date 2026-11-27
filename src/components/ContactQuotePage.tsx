@@ -127,22 +127,22 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
   };
 
   return (
-    <div className="bg-[#F7F4EC]">
+    <div className="bg-[#F3EBDD]">
       {/* Header Band */}
-      <section className="bg-[#132A1E] text-[#F7F4EC]">
+      <section className="bg-[#173C2B] text-[#F3EBDD]">
         <div className="mx-auto max-w-[1280px] px-5 sm:px-8 py-14 sm:py-16">
           <div className="max-w-2xl">
-            <div className="flex flex-wrap items-center gap-2 text-xs tracking-wide text-[#D4AF6A]">
+            <div className="flex flex-wrap items-center gap-2 text-xs tracking-wide text-[#D6BD83]">
               <span>Contact &amp; Bulk Trade Desk</span>
               <span aria-hidden="true">·</span>
               <span>zestorahills.in</span>
               <span aria-hidden="true">·</span>
               <span>Response within 24 Hours</span>
             </div>
-            <h1 className="mt-4 font-serif text-[clamp(2.25rem,4vw,3.6rem)] font-medium leading-[1.1] text-[#F7F4EC] text-balance">
+            <h1 className="mt-4 font-serif text-[clamp(2.25rem,4vw,3.6rem)] font-medium leading-[1.1] text-[#F3EBDD] text-balance">
               Request a wholesale quotation or speak directly with our sourcing desk.
             </h1>
-            <p className="mt-4 text-base leading-relaxed text-[#EFEADF]/82">
+            <p className="mt-4 text-base leading-relaxed text-[#E9E2D3]/82">
               Whether you need 50g–500g retail packs, a bulk domestic wholesale consignment, or FOB
               export pricing and applicable product documentation, our team responds
               promptly.
@@ -157,12 +157,12 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
           {/* Left Column: Direct WhatsApp & Desk Info */}
           <div className="space-y-6 lg:col-span-5">
             {/* Prominent Direct WhatsApp Inquiry Card */}
-            <div className="rounded-lg bg-[#132A1E] p-7 text-[#F7F4EC]">
-              <p className="text-xs font-medium text-[#D4AF6A]">Instant Trade &amp; Retail Support</p>
-              <h2 className="mt-2 font-serif text-3xl font-medium text-[#F7F4EC]">
+            <div className="rounded-lg bg-[#173C2B] p-7 text-[#F3EBDD]">
+              <p className="text-xs font-medium text-[#D6BD83]">Instant Trade &amp; Retail Support</p>
+              <h2 className="mt-2 font-serif text-3xl font-medium text-[#F3EBDD]">
                 Direct WhatsApp Inquiry
               </h2>
-              <p className="mt-2.5 text-sm leading-relaxed text-[#EFEADF]/82">
+              <p className="mt-2.5 text-sm leading-relaxed text-[#E9E2D3]/82">
                 Connect directly with our Idukki sourcing and export desk on WhatsApp for live crop
                 availability, current harvest photos, sample dispatch, and urgent bulk quotes.
               </p>
@@ -171,49 +171,49 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                 href={directWhatsAppHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-md bg-[#D4AF6A] px-6 py-3 text-sm font-semibold text-[#132A1E] transition-colors hover:bg-[#E5C88B]"
+                className="mt-6 inline-flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-md bg-[#D6BD83] px-6 py-3 text-sm font-semibold text-[#173C2B] transition-colors hover:bg-[#E5D19D]"
               >
                 <MessageCircle className="h-5 w-5" aria-hidden="true" />
                 <span>Chat on WhatsApp ({BRAND_CONTACT.phoneDisplay})</span>
               </a>
-              <p className="mt-3 text-xs text-[#EFEADF]/65">
+              <p className="mt-3 text-xs text-[#E9E2D3]/65">
                 {BRAND_CONTACT.hours} · Direct to Zestora Hills Desk
               </p>
             </div>
 
             {/* Contact Details Card */}
-            <div className="rounded-lg border border-[#132A1E]/12 bg-[#FCFBF7] p-7 space-y-5">
-              <h3 className="font-serif text-2xl font-semibold text-[#132A1E]">
+            <div className="rounded-lg border border-[#173C2B]/12 bg-[#F8F5EC] p-7 space-y-5">
+              <h3 className="font-serif text-2xl font-semibold text-[#173C2B]">
                 Sourcing &amp; Dispatch House
               </h3>
 
               <div className="space-y-4 text-sm">
                 <div className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#966D28]" aria-hidden="true" />
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#987B43]" aria-hidden="true" />
                   <div>
-                    <p className="font-medium text-[#132A1E]">Western Ghats Curing Facility</p>
-                    <p className="mt-0.5 text-[#4A5D52]">{BRAND_CONTACT.address}</p>
+                    <p className="font-medium text-[#173C2B]">Western Ghats Curing Facility</p>
+                    <p className="mt-0.5 text-[#52665A]">{BRAND_CONTACT.address}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#966D28]" aria-hidden="true" />
+                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#987B43]" aria-hidden="true" />
                   <div>
-                    <p className="font-medium text-[#132A1E]">Email Desks</p>
-                    <p className="mt-0.5 text-[#4A5D52]">
+                    <p className="font-medium text-[#173C2B]">Email Desks</p>
+                    <p className="mt-0.5 text-[#52665A]">
                       Wholesale &amp; Export:{' '}
                       <a
                         href={`mailto:${BRAND_CONTACT.tradeEmail}`}
-                        className="text-[#132A1E] underline decoration-[#B88A3E]/60 underline-offset-4 hover:text-[#966D28]"
+                        className="text-[#173C2B] underline decoration-[#B69A61]/60 underline-offset-4 hover:text-[#987B43]"
                       >
                         {BRAND_CONTACT.tradeEmail}
                       </a>
                     </p>
-                    <p className="mt-0.5 text-[#4A5D52]">
+                    <p className="mt-0.5 text-[#52665A]">
                       Retail Care:{' '}
                       <a
                         href={`mailto:${BRAND_CONTACT.careEmail}`}
-                        className="text-[#132A1E] underline decoration-[#B88A3E]/60 underline-offset-4 hover:text-[#966D28]"
+                        className="text-[#173C2B] underline decoration-[#B69A61]/60 underline-offset-4 hover:text-[#987B43]"
                       >
                         {BRAND_CONTACT.careEmail}
                       </a>
@@ -222,10 +222,10 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-[#966D28]" aria-hidden="true" />
+                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-[#987B43]" aria-hidden="true" />
                   <div>
-                    <p className="font-medium text-[#132A1E]">Telephone</p>
-                    <p className="mt-0.5 text-[#4A5D52] tabular-nums">
+                    <p className="font-medium text-[#173C2B]">Telephone</p>
+                    <p className="mt-0.5 text-[#52665A] tabular-nums">
                       {BRAND_CONTACT.phoneDisplay}
                     </p>
                   </div>
@@ -235,38 +235,38 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
           </div>
 
           {/* Right Column: Interactive Contact & Bulk Quote Form */}
-          <div className="rounded-lg border border-[#132A1E]/12 bg-[#FCFBF7] p-6 sm:p-9 lg:col-span-7">
+          <div className="rounded-lg border border-[#173C2B]/12 bg-[#F8F5EC] p-6 sm:p-9 lg:col-span-7">
             {submittedRef ? (
               <div className="py-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#132A1E] text-[#D4AF6A]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#173C2B] text-[#D6BD83]">
                   <CheckCircle2 className="h-6 w-6" aria-hidden="true" />
                 </div>
-                <p className="mt-5 text-xs font-medium text-[#966D28] tabular-nums">
+                <p className="mt-5 text-xs font-medium text-[#987B43] tabular-nums">
                   Reference {submittedRef} · Received
                 </p>
-                <h2 className="mt-1 font-serif text-3xl font-semibold text-[#132A1E]">
+                <h2 className="mt-1 font-serif text-3xl font-semibold text-[#173C2B]">
                   Your inquiry has been logged
                 </h2>
-                <p className="mt-2.5 text-sm leading-relaxed text-[#4A5D52]">
+                <p className="mt-2.5 text-sm leading-relaxed text-[#52665A]">
                   Thank you, {fullName}. Our Western Ghats trade desk will prepare grade specs and
                   pricing for your selected harvests and reply to <strong>{email}</strong> within
                   one business day.
                 </p>
 
-                <div className="mt-6 space-y-2 rounded-md border border-[#132A1E]/10 bg-[#F7F4EC] p-5 text-sm">
+                <div className="mt-6 space-y-2 rounded-md border border-[#173C2B]/10 bg-[#F3EBDD] p-5 text-sm">
                   <p>
-                    <span className="text-[#63756A]">Inquiry Type:</span>{' '}
-                    <span className="font-medium text-[#132A1E]">{mode}</span>
+                    <span className="text-[#718276]">Inquiry Type:</span>{' '}
+                    <span className="font-medium text-[#173C2B]">{mode}</span>
                   </p>
                   <p>
-                    <span className="text-[#63756A]">Harvests:</span>{' '}
-                    <span className="font-medium text-[#132A1E]">
+                    <span className="text-[#718276]">Harvests:</span>{' '}
+                    <span className="font-medium text-[#173C2B]">
                       {selectedProducts.length > 0 ? selectedProducts.join(', ') : 'General Catalog'}
                     </span>
                   </p>
                   <p>
-                    <span className="text-[#63756A]">Volume &amp; Pack:</span>{' '}
-                    <span className="font-medium text-[#132A1E]">
+                    <span className="text-[#718276]">Volume &amp; Pack:</span>{' '}
+                    <span className="font-medium text-[#173C2B]">
                       {volume} · {packaging}
                     </span>
                   </p>
@@ -277,16 +277,16 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                     href={dynamicWhatsAppHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[46px] items-center gap-2 rounded-md bg-[#132A1E] px-6 py-3 text-sm font-semibold text-[#F7F4EC] transition-colors hover:bg-[#1B3B2B]"
+                    className="inline-flex min-h-[46px] items-center gap-2 rounded-md bg-[#173C2B] px-6 py-3 text-sm font-semibold text-[#F3EBDD] transition-colors hover:bg-[#244B35]"
                   >
-                    <MessageCircle className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
+                    <MessageCircle className="h-4 w-4 text-[#D6BD83]" aria-hidden="true" />
                     <span>Also Send Summary on WhatsApp</span>
                   </a>
 
                   <button
                     type="button"
                     onClick={() => setSubmittedRef(null)}
-                    className="inline-flex min-h-[46px] items-center rounded-md border border-[#132A1E]/20 px-5 py-3 text-sm font-medium text-[#132A1E] transition-colors hover:bg-[#EFEADF] cursor-pointer"
+                    className="inline-flex min-h-[46px] items-center rounded-md border border-[#173C2B]/20 px-5 py-3 text-sm font-medium text-[#173C2B] transition-colors hover:bg-[#E9E2D3] cursor-pointer"
                   >
                     Submit Another Inquiry
                   </button>
@@ -295,18 +295,18 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <h2 className="font-serif text-3xl font-semibold text-[#132A1E]">
+                  <h2 className="font-serif text-3xl font-semibold text-[#173C2B]">
                     Contact &amp; Bulk Quote Form
                   </h2>
-                  <p className="mt-1 text-sm text-[#4A5D52]">
+                  <p className="mt-1 text-sm text-[#52665A]">
                     Select your inquiry type and target products for an itemized quotation.
                   </p>
                 </div>
 
                 {/* Inquiry Mode Segmented Selector */}
                 <div>
-                  <p className="text-xs font-medium text-[#4A5D52]">Inquiry Channel</p>
-                  <div className="mt-2 flex flex-wrap gap-1.5 rounded-lg bg-[#EFEADF] p-1">
+                  <p className="text-xs font-medium text-[#52665A]">Inquiry Channel</p>
+                  <div className="mt-2 flex flex-wrap gap-1.5 rounded-lg bg-[#E9E2D3] p-1">
                     {INQUIRY_MODES.map((item) => {
                       const active = mode === item;
                       return (
@@ -316,8 +316,8 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                           onClick={() => setMode(item)}
                           className={`min-h-[38px] flex-1 rounded-md px-3.5 py-2 text-xs sm:text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
                             active
-                              ? 'bg-[#132A1E] text-[#F7F4EC]'
-                              : 'text-[#4A5D52] hover:text-[#132A1E]'
+                              ? 'bg-[#173C2B] text-[#F3EBDD]'
+                              : 'text-[#52665A] hover:text-[#173C2B]'
                           }`}
                         >
                           {item}
@@ -341,7 +341,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                   <div>
                     <label
                       htmlFor="quote-name"
-                      className="block text-xs font-medium text-[#4A5D52]"
+                      className="block text-xs font-medium text-[#52665A]"
                     >
                       Full Name *
                     </label>
@@ -352,13 +352,13 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Rohan Krishnan"
-                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#132A1E]/15 bg-[#F7F4EC]/50 px-3.5 text-sm text-[#132A1E]"
+                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3.5 text-sm text-[#173C2B]"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="quote-company"
-                      className="block text-xs font-medium text-[#4A5D52]"
+                      className="block text-xs font-medium text-[#52665A]"
                     >
                       Company / Hospitality / Roastery
                     </label>
@@ -368,7 +368,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
                       placeholder="Malabar Provisions Pvt. Ltd."
-                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#132A1E]/15 bg-[#F7F4EC]/50 px-3.5 text-sm text-[#132A1E]"
+                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3.5 text-sm text-[#173C2B]"
                     />
                   </div>
                 </div>
@@ -377,7 +377,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                   <div>
                     <label
                       htmlFor="quote-email"
-                      className="block text-xs font-medium text-[#4A5D52]"
+                      className="block text-xs font-medium text-[#52665A]"
                     >
                       Work or Personal Email *
                     </label>
@@ -388,13 +388,13 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="procurement@company.com"
-                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#132A1E]/15 bg-[#F7F4EC]/50 px-3.5 text-sm text-[#132A1E]"
+                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3.5 text-sm text-[#173C2B]"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="quote-phone"
-                      className="block text-xs font-medium text-[#4A5D52]"
+                      className="block text-xs font-medium text-[#52665A]"
                     >
                       Phone / WhatsApp Number *
                     </label>
@@ -405,7 +405,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+91 / Country Code + Number"
-                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#132A1E]/15 bg-[#F7F4EC]/50 px-3.5 text-sm text-[#132A1E]"
+                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3.5 text-sm text-[#173C2B]"
                     />
                   </div>
                 </div>
@@ -413,7 +413,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                 {/* Product Selection Checkboxes */}
                 <div>
                   <div className="flex items-baseline justify-between">
-                    <p className="text-xs font-medium text-[#4A5D52]">
+                    <p className="text-xs font-medium text-[#52665A]">
                       Products of Interest ({selectedProducts.length} selected)
                     </p>
                     <button
@@ -425,7 +425,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                             : PRODUCTS.map((p) => p.name)
                         )
                       }
-                      className="text-xs font-medium text-[#966D28] hover:text-[#132A1E] cursor-pointer"
+                      className="text-xs font-medium text-[#987B43] hover:text-[#173C2B] cursor-pointer"
                     >
                       {selectedProducts.length === PRODUCTS.length ? 'Clear All' : 'Select All 14'}
                     </button>
@@ -442,13 +442,13 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                           aria-pressed={isChecked}
                           className={`flex min-h-[40px] items-center justify-between rounded-md border px-3 py-2 text-left text-xs font-medium transition-colors cursor-pointer ${
                             isChecked
-                              ? 'border-[#132A1E] bg-[#132A1E] text-[#F7F4EC]'
-                              : 'border-[#132A1E]/15 bg-[#F7F4EC]/60 text-[#132A1E] hover:border-[#132A1E]/40'
+                              ? 'border-[#173C2B] bg-[#173C2B] text-[#F3EBDD]'
+                              : 'border-[#173C2B]/15 bg-[#F3EBDD]/60 text-[#173C2B] hover:border-[#173C2B]/40'
                           }`}
                         >
                           <span className="truncate">{product.name}</span>
                           {isChecked && (
-                            <Check className="h-3.5 w-3.5 shrink-0 text-[#D4AF6A]" aria-hidden="true" />
+                            <Check className="h-3.5 w-3.5 shrink-0 text-[#D6BD83]" aria-hidden="true" />
                           )}
                         </button>
                       );
@@ -461,7 +461,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                   <div>
                     <label
                       htmlFor="quote-volume"
-                      className="block text-xs font-medium text-[#4A5D52]"
+                      className="block text-xs font-medium text-[#52665A]"
                     >
                       Estimated Volume
                     </label>
@@ -469,7 +469,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       id="quote-volume"
                       value={volume}
                       onChange={(e) => setVolume(e.target.value)}
-                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#132A1E]/15 bg-[#F7F4EC]/50 px-3 text-sm text-[#132A1E] cursor-pointer"
+                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3 text-sm text-[#173C2B] cursor-pointer"
                     >
                       {VOLUME_OPTIONS.map((opt) => (
                         <option key={opt} value={opt}>
@@ -482,7 +482,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                   <div>
                     <label
                       htmlFor="quote-packaging"
-                      className="block text-xs font-medium text-[#4A5D52]"
+                      className="block text-xs font-medium text-[#52665A]"
                     >
                       Preferred Packaging
                     </label>
@@ -490,7 +490,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                       id="quote-packaging"
                       value={packaging}
                       onChange={(e) => setPackaging(e.target.value)}
-                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#132A1E]/15 bg-[#F7F4EC]/50 px-3 text-sm text-[#132A1E] cursor-pointer"
+                      className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3 text-sm text-[#173C2B] cursor-pointer"
                     >
                       {PACKAGING_OPTIONS.map((opt) => (
                         <option key={opt} value={opt}>
@@ -504,7 +504,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                 <div>
                   <label
                     htmlFor="quote-destination"
-                    className="block text-xs font-medium text-[#4A5D52]"
+                    className="block text-xs font-medium text-[#52665A]"
                   >
                     Delivery City / Destination Port &amp; Country
                   </label>
@@ -514,14 +514,14 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
                     placeholder="e.g., Bengaluru (India), Dubai (Jebel Ali), or Rotterdam (EU)"
-                    className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#132A1E]/15 bg-[#F7F4EC]/50 px-3.5 text-sm text-[#132A1E]"
+                    className="mt-1.5 min-h-[42px] w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3.5 text-sm text-[#173C2B]"
                   />
                 </div>
 
                 <div>
                   <label
                     htmlFor="quote-message"
-                    className="block text-xs font-medium text-[#4A5D52]"
+                    className="block text-xs font-medium text-[#52665A]"
                   >
                     Grade Requirements, Lab COA Needs, or Message
                   </label>
@@ -531,7 +531,7 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Specify sieve grade (e.g. 8mm+ cardamom, TGSEB pepper), target Incoterms (FOB/CIF), or private-label pack details..."
-                    className="mt-1.5 w-full rounded-md border border-[#132A1E]/15 bg-[#F7F4EC]/50 px-3.5 py-2.5 text-sm text-[#132A1E]"
+                    className="mt-1.5 w-full rounded-md border border-[#173C2B]/15 bg-[#F3EBDD]/50 px-3.5 py-2.5 text-sm text-[#173C2B]"
                   />
                 </div>
 
@@ -540,9 +540,9 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex min-h-[46px] flex-1 items-center justify-center gap-2 rounded-md bg-[#132A1E] px-6 py-3 text-sm font-semibold text-[#F7F4EC] transition-colors hover:bg-[#1B3B2B] whitespace-nowrap cursor-pointer"
+                    className="inline-flex min-h-[46px] flex-1 items-center justify-center gap-2 rounded-md bg-[#173C2B] px-6 py-3 text-sm font-semibold text-[#F3EBDD] transition-colors hover:bg-[#244B35] whitespace-nowrap cursor-pointer"
                   >
-                    <Send className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
+                    <Send className="h-4 w-4 text-[#D6BD83]" aria-hidden="true" />
                     <span>{isSubmitting ? 'Submitting…' : 'Submit Quote Request'}</span>
                   </button>
 
@@ -550,9 +550,9 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                     href={dynamicWhatsAppHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-md border border-[#132A1E]/25 bg-[#F7F4EC] px-5 py-3 text-sm font-semibold text-[#132A1E] transition-colors hover:border-[#B88A3E] hover:bg-[#EFEADF] whitespace-nowrap"
+                    className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-md border border-[#173C2B]/25 bg-[#F3EBDD] px-5 py-3 text-sm font-semibold text-[#173C2B] transition-colors hover:border-[#B69A61] hover:bg-[#E9E2D3] whitespace-nowrap"
                   >
-                    <MessageCircle className="h-4 w-4 text-[#1B3B2B]" aria-hidden="true" />
+                    <MessageCircle className="h-4 w-4 text-[#244B35]" aria-hidden="true" />
                     <span>Send via WhatsApp</span>
                   </a>
                 </div>
