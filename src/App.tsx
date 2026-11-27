@@ -48,11 +48,13 @@ function mapDatabaseProduct(row: any): Product {
       size,
       priceInr: Number(variant.price) || 0,
       sku: String(variant.sku ?? ''),
+      stockQuantity: Number.isFinite(Number(variant.stock_quantity)) ? Number(variant.stock_quantity) : undefined,
     };
   }
   const category = ['Whole Spices', 'Estate Coffee', 'Infused Teas', 'Aromatics & Herbs'].includes(row.category)
     ? row.category
     : 'Whole Spices';
+  const defaultPack: PackSize = category === 'Estate Coffee' ? '500g' : '50g';
   const base: Product = staticProduct ?? {
     id: `db-${row.id}`,
     supabaseId: String(row.id),
@@ -71,7 +73,7 @@ function mapDatabaseProduct(row: any): Product {
     specHighlight: 'Zestora Hills Collection',
     image: HERO_IMAGE,
     imageAlt: String(row.name ?? 'Zestora Hills product'),
-    packs: {},
+    packs: { [defaultPack]: { size: defaultPack, priceInr: 0, sku: '' } },
   };
   return {
     ...base,
