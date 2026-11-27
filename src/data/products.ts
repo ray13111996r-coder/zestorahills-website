@@ -402,24 +402,24 @@ export const MOQ_TIERS = [
 
 export const COMPLIANCE_CREDENTIALS = [
   {
-    code: 'FSSAI Central License',
+    code: 'FSSAI Licensing',
     scope: 'Food Safety & Standards Authority of India',
-    detail: 'Full compliance for domestic wholesale, retail food packing, hygienic curing, and traceable lot coding across every retail and bulk batch.',
+    detail: 'Applicable licence status and permitted activities will be confirmed before product sale or dispatch.',
   },
   {
-    code: 'Spices Board of India (CRES)',
-    scope: 'Certificate of Registration as Exporter of Spices',
-    detail: 'Registered export readiness aligned with Spices Board quality grading protocols, mandatory pre-shipment sampling, and spice-specific ASTA cleanliness grades.',
+    code: 'Spices Board Registration',
+    scope: 'Exporter registration for eligible spice products',
+    detail: 'Registration requirements and status will be confirmed before accepting any export order for regulated products.',
   },
   {
-    code: 'IEC & Customs Documentation',
-    scope: 'DGFT Import Export Code & Origin Papers',
-    detail: 'Complete commercial invoice, packing list, Certificate of Origin (CoO / GSP), Phytosanitary Certificate, and fumigation clearance as required by destination markets.',
+    code: 'IEC & Export Documentation',
+    scope: 'DGFT Import Export Code and destination-specific paperwork',
+    detail: 'Required documents depend on the product and destination. Availability will be confirmed for each export enquiry.',
   },
   {
-    code: 'NABL / SGS Analytical Lab Testing',
-    scope: 'Third-Party Residue & Microbiological COA',
-    detail: 'Batch-wise testing available for moisture %, volatile oil %, piperine/eugenol levels, aflatoxin (EU/US limits), heavy metals, and ETO-free pesticide residue screening.',
+    code: 'Product Testing',
+    scope: 'Independent laboratory testing where required',
+    detail: 'Testing and certificates of analysis can be discussed based on buyer specifications and applicable requirements.',
   },
 ];
 
@@ -456,7 +456,7 @@ export const WESTERN_GHATS_REGIONS = [
     region: 'Nilgiris & Kodaikanal',
     elevation: '1,650m – 2,000m',
     microclimate: 'Crisp temperate highland air, misty mornings',
-    harvests: 'Sun-Cured Mountain Rosemary',
+    harvests: 'Botanical infusion ingredients; origin confirmed by lot',
     window: 'Year-Round',
   },
 ];
