@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { Check, CheckCircle2, Mail, MapPin, MessageCircle, Phone, Send } from 'lucide-react';
 import { BRAND_CONTACT, PRODUCTS } from '../data/products';
 import { InquiryMode, QuotePrefill } from '../types';
+import { isSupabaseConfigured, supabase } from '../supabase';
 
 interface ContactQuotePageProps {
   prefill?: QuotePrefill | null;
@@ -39,10 +40,11 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
   const [volume, setVolume] = useState(VOLUME_OPTIONS[1]);
   const [packaging, setPackaging] = useState(prefill?.packaging ?? PACKAGING_OPTIONS[0]);
   const [selectedProducts, setSelectedProducts] = useState<string[]>(
-    prefill?.products ?? ['Whole Black Pepper', 'Green Cardamom']
+    prefill?.products ?? ['Black Pepper', 'Green Cardamom']
   );
   const [message, setMessage] = useState(prefill?.note ?? '');
   const [errorText, setErrorText] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
 
   useEffect(() => {
@@ -86,15 +88,42 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
     'Hello Zestora Hills! I would like to inquire about Western Ghats spices, roasted coffee and infused teas (retail / wholesale).'
   )}`;
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     if (!fullName.trim() || !email.trim() || !phone.trim()) {
       setErrorText('Please enter your name, email address, and phone or WhatsApp number.');
       return;
     }
+    if (!isSupabaseConfigured || !supabase) {
+      setErrorText('The online enquiry form is being configured. Please use the WhatsApp button to send your enquiry.');
+      return;
+    }
+
     setErrorText('');
-    const refId = `ZH-Q-${Math.floor(1000 + Math.random() * 9000)}`;
-    setSubmittedRef(refId);
+    setIsSubmitting(true);
+    const refId = `ZH-Q-${window.crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+    try {
+      const { error } = await supabase.from('quote_requests').insert({
+        reference_code: refId,
+        full_name: fullName.trim(),
+        company: company.trim() || null,
+        email: email.trim(),
+        phone: phone.trim(),
+        destination: destination.trim() || null,
+        inquiry_mode: mode,
+        estimated_volume: volume,
+        packaging,
+        products: selectedProducts,
+        message: message.trim() || null,
+      });
+      if (error) throw error;
+      setSubmittedRef(refId);
+    } catch {
+      setErrorText('We could not save your enquiry just now. Please send it using the WhatsApp button instead.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -510,10 +539,11 @@ export function ContactQuotePage({ prefill }: ContactQuotePageProps) {
                 <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="inline-flex min-h-[46px] flex-1 items-center justify-center gap-2 rounded-md bg-[#132A1E] px-6 py-3 text-sm font-semibold text-[#F7F4EC] transition-colors hover:bg-[#1B3B2B] whitespace-nowrap cursor-pointer"
                   >
                     <Send className="h-4 w-4 text-[#D4AF6A]" aria-hidden="true" />
-                    <span>Submit Quote Request</span>
+                    <span>{isSubmitting ? 'Submitting…' : 'Submit Quote Request'}</span>
                   </button>
 
                   <a
