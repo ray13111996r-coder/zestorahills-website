@@ -283,7 +283,7 @@ export function CartDrawer({
                   </p>
 
                   <p className="mt-2 max-w-xs text-sm text-[#4A5D52]">
-                    Explore single-origin spices and shade-grown Arabica coffee harvested from the
+                    Explore Western Ghats spices, roasted coffee and botanical infusions selected from the
                     Western Ghats.
                   </p>
 
