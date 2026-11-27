@@ -139,7 +139,7 @@ export default function App() {
   const totalBagCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const directWhatsAppHref = `https://wa.me/${BRAND_CONTACT.whatsappNumber}?text=${encodeURIComponent(
-    'Hello Zestora Hills! I would like to inquire about wholesale / export spice & estate coffee supply.'
+    'Hello Zestora Hills! I would like to inquire about wholesale / export spices, coffee and infused tea supply.'
   )}`;
 
   return (
@@ -182,7 +182,7 @@ export default function App() {
                         Farm-to-Pack Provenance · Western Ghats
                       </p>
                       <h2 className="mt-2 font-serif text-3xl font-medium text-[#132A1E] text-balance">
-                        Single-estate harvests from 900m to 2,000m elevation.
+                        Inspired by the rich highlands of the Western Ghats.
                       </h2>
                       <p className="mt-3 text-sm leading-relaxed text-[#4A5D52]">
                         By procuring directly at the farm gate in Idukki, Wayanad, Chikmagalur,
