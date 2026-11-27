@@ -4,24 +4,24 @@
   --font-serif: "Cormorant Garamond", Georgia, Cambria, "Times New Roman", serif;
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --color-forest-950: #0E2017;
-  --color-forest-900: #132A1E;
-  --color-forest-800: #1B3B2B;
-  --color-forest-700: #274D3A;
+  --color-forest-950: #10291D;
+  --color-forest-900: #173C2B;
+  --color-forest-800: #244B35;
+  --color-forest-700: #315A43;
   --color-forest-600: #39614D;
-  --color-sage-600: #4A5D52;
-  --color-sage-500: #63756A;
+  --color-sage-600: #52665A;
+  --color-sage-500: #718276;
 
-  --color-gold-300: #E5C88B;
-  --color-gold-400: #D4AF6A;
-  --color-gold-500: #B88A3E;
-  --color-gold-600: #966D28;
-  --color-gold-700: #7B571D;
+  --color-gold-300: #E5D19D;
+  --color-gold-400: #D6BD83;
+  --color-gold-500: #B69A61;
+  --color-gold-600: #987B43;
+  --color-gold-700: #80643A;
 
-  --color-cream-50: #FCFBF7;
-  --color-cream-100: #F7F4EC;
-  --color-cream-200: #EFEADF;
-  --color-cream-300: #E2DACB;
+  --color-cream-50: #F8F5EC;
+  --color-cream-100: #F3EBDD;
+  --color-cream-200: #E9E2D3;
+  --color-cream-300: #DDD2BF;
 }
 
 @layer base {
