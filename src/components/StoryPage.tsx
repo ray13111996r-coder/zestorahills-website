@@ -8,10 +8,9 @@ import { ProductImage } from './ProductImage';
 
 interface StoryPageProps {
   onShopRetail: () => void;
-  onBulkInquiry: () => void;
 }
 
-export function StoryPage({ onShopRetail, onBulkInquiry }: StoryPageProps) {
+export function StoryPage({ onShopRetail }: StoryPageProps) {
   return (
     <div className="bg-[#F3EBDD]">
       {/* Atmospheric Western Ghats Full-Width Editorial Hero */}
@@ -176,11 +175,10 @@ export function StoryPage({ onShopRetail, onBulkInquiry }: StoryPageProps) {
             <div>
               <p className="text-xs font-medium text-[#D6BD83]">Taste the Current Crop</p>
               <h3 className="mt-2 font-serif text-3xl font-medium text-[#F3EBDD]">
-                Bring the Western Ghats harvest to your kitchen or trade catalog.
+                Bring the Western Ghats harvest to your kitchen.
               </h3>
               <p className="mt-3 text-sm text-[#E9E2D3]/80">
-                From carefully sized retail pouches to tailored wholesale and
-                export consignments.
+                Discover our carefully selected retail collection of spices, roasted coffee and botanical infusions.
               </p>
             </div>
 
@@ -193,13 +191,7 @@ export function StoryPage({ onShopRetail, onBulkInquiry }: StoryPageProps) {
                 <span>Shop Retail</span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
-              <button
-                type="button"
-                onClick={onBulkInquiry}
-                className="inline-flex min-h-[44px] items-center rounded-md border border-[#D6BD83]/45 px-5 py-2.5 text-sm font-medium text-[#F3EBDD] transition-colors hover:border-[#D6BD83] hover:bg-[#244B35] whitespace-nowrap cursor-pointer"
-              >
-                <span>Bulk &amp; Export</span>
-              </button>
+
             </div>
           </div>
         </div>
