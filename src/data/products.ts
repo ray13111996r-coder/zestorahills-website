@@ -17,9 +17,9 @@ export const STORY_IMAGE = '/src/assets/images/story_western_ghats_estate_179519
 const LEGACY_PRODUCTS: Product[] = [
   {
     id: 'whole-black-pepper',
-    supabaseId: 1,
+    supabaseId: null,
     slug: 'whole-black-pepper',
-    name: 'Whole Black Pepper',
+    name: 'Black Pepper',
     botanicalName: 'Piper nigrum',
     category: 'Whole Spices',
     origin: 'Wayanad, Kerala',
@@ -41,7 +41,7 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'green-cardamom',
-    supabaseId: 2,
+    supabaseId: null,
     slug: 'green-cardamom',
     name: 'Green Cardamom',
     botanicalName: 'Elettaria cardamomum',
@@ -65,7 +65,7 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'cinnamon',
-    supabaseId: 3,
+    supabaseId: null,
     slug: 'cinnamon',
     name: 'Cinnamon',
     botanicalName: 'Cinnamomum verum',
@@ -90,7 +90,7 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'dried-ginger',
-    supabaseId: 4,
+    supabaseId: null,
     slug: 'dried-ginger',
     name: 'Dried Ginger',
     botanicalName: 'Zingiber officinale',
@@ -114,7 +114,7 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'cloves',
-    supabaseId: 5,
+    supabaseId: null,
     slug: 'cloves',
     name: 'Cloves',
     botanicalName: 'Syzygium aromaticum',
@@ -138,7 +138,7 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'star-anise',
-    supabaseId: 6,
+    supabaseId: null,
     slug: 'star-anise',
     name: 'Star Anise',
     botanicalName: 'Illicium verum',
@@ -162,9 +162,9 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'dried-bay-leaf',
-    supabaseId: 7,
+    supabaseId: null,
     slug: 'dried-bay-leaf',
-    name: 'Dried Bay Leaf',
+    name: 'Bay Leaf',
     botanicalName: 'Cinnamomum tamala',
     category: 'Aromatics & Herbs',
     origin: 'Western Ghats Ridge Groves',
@@ -186,7 +186,7 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'dried-rosemary',
-    supabaseId: 8,
+    supabaseId: null,
     slug: 'dried-rosemary',
     name: 'Dried Rosemary',
     botanicalName: 'Salvia rosmarinus',
@@ -210,7 +210,7 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'nutmeg',
-    supabaseId: 9,
+    supabaseId: null,
     slug: 'nutmeg',
     name: 'Nutmeg',
     botanicalName: 'Myristica fragrans',
@@ -234,7 +234,7 @@ const LEGACY_PRODUCTS: Product[] = [
   },
   {
     id: 'roasted-coffee-beans',
-    supabaseId: 10,
+    supabaseId: null,
     slug: 'roasted-coffee-beans',
     name: 'Roasted Coffee Beans',
     botanicalName: 'Coffea arabica (S.795 & Kent)',
@@ -276,7 +276,7 @@ const coffeeBase = LEGACY_PRODUCTS.find((p) => p.id === 'roasted-coffee-beans')!
 const coffeePack = { '500g': { size: '500g' as const, priceInr: 0, sku: 'ZH-COF-500' } };
 const coffeeProducts: Product[] = [
   {
-    ...coffeeBase, id: 'espresso-coffee-blend', supabaseId: 11, slug: 'espresso-coffee-blend',
+    ...coffeeBase, id: 'espresso-coffee-blend', supabaseId: null, slug: 'espresso-coffee-blend',
     name: 'Espresso Coffee – Arabica & Robusta Blend', category: 'Estate Coffee',
     botanicalName: 'Arabica & Robusta blend', grade: 'Medium-Dark Roast',
     shortNote: 'A balanced Arabica and Robusta blend developed for espresso extraction.',
@@ -287,7 +287,7 @@ const coffeeProducts: Product[] = [
     packs: coffeePack,
   },
   {
-    ...coffeeBase, id: 'south-indian-filter-coffee', supabaseId: 12, slug: 'south-indian-filter-coffee',
+    ...coffeeBase, id: 'south-indian-filter-coffee', supabaseId: null, slug: 'south-indian-filter-coffee',
     name: 'South Indian Filter Coffee – Arabica & Robusta Blend', category: 'Estate Coffee',
     botanicalName: 'Arabica & Robusta blend', grade: 'Medium-Dark Roast',
     shortNote: 'A comforting Arabica and Robusta blend for traditional South Indian filter brewing.',
@@ -298,7 +298,7 @@ const coffeeProducts: Product[] = [
     packs: { '500g': { size: '500g', priceInr: 0, sku: 'ZH-SIF-500' } },
   },
   {
-    ...coffeeBase, id: 'whole-roasted-coffee-beans', supabaseId: 13, slug: 'whole-roasted-coffee-beans',
+    ...coffeeBase, id: 'whole-roasted-coffee-beans', supabaseId: null, slug: 'whole-roasted-coffee-beans',
     name: 'Whole Roasted Coffee Beans', category: 'Estate Coffee',
     botanicalName: 'Roasted whole coffee beans', grade: 'Whole Bean · 500g',
     shortNote: 'Whole roasted coffee beans, ready to grind fresh for your preferred brew.',
@@ -312,7 +312,7 @@ const coffeeProducts: Product[] = [
 const teaBase = LEGACY_PRODUCTS.find((p) => p.id === 'dried-bay-leaf')!;
 const teaProducts: Product[] = [
   {
-    ...teaBase, id: 'hibiscus-infusion-tea', supabaseId: 14, slug: 'hibiscus-infusion-tea',
+    ...teaBase, id: 'hibiscus-infusion-tea', supabaseId: null, slug: 'hibiscus-infusion-tea',
     name: 'Hibiscus Infusion Tea', category: 'Infused Teas',
     botanicalName: 'Hibiscus sabdariffa', grade: 'Dried Hibiscus Infusion',
     shortNote: 'A vivid floral infusion with a naturally tart character.',
@@ -323,7 +323,7 @@ const teaProducts: Product[] = [
     packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-HIB-50' } },
   },
   {
-    ...teaBase, id: 'blue-pea-infusion-tea', supabaseId: 15, slug: 'blue-pea-infusion-tea',
+    ...teaBase, id: 'blue-pea-infusion-tea', supabaseId: null, slug: 'blue-pea-infusion-tea',
     name: 'Blue Pea Infusion Tea', category: 'Infused Teas',
     botanicalName: 'Clitoria ternatea', grade: 'Dried Blue Pea Flowers',
     shortNote: 'A naturally blue botanical infusion made from dried butterfly pea flowers.',
@@ -334,7 +334,7 @@ const teaProducts: Product[] = [
     packs: { '50g': { size: '50g', priceInr: 0, sku: 'ZH-BPT-50' } },
   },
   {
-    ...teaBase, id: 'lemongrass-infusion-tea', supabaseId: 16, slug: 'lemongrass-infusion-tea',
+    ...teaBase, id: 'lemongrass-infusion-tea', supabaseId: null, slug: 'lemongrass-infusion-tea',
     name: 'Lemongrass Infusion Tea', category: 'Infused Teas',
     botanicalName: 'Cymbopogon citratus', grade: 'Dried Lemongrass',
     shortNote: 'A refreshing herbal infusion with clean citrus notes.',
