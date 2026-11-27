@@ -40,7 +40,7 @@ function mapDatabaseProduct(row: any): Product {
       product.id === aliases[normalized]
   );
   const variants = Array.isArray(row.product_variants) ? row.product_variants : [];
-  const activePacks: Partial<Record<PackSize, { size: PackSize; priceInr: number; sku: string; stockQuantity?: number }>> = {};
+  const activePacks: Partial<Record<PackSize, { size: PackSize; priceInr: number; sku: string; stockQuantity?: number; isActive?: boolean }>> = {};
   for (const variant of variants) {
     const size = String(variant.pack_size) as PackSize;
     if (!SUPPORTED_PACK_SIZES.includes(size)) continue;
